@@ -10,5 +10,5 @@ A Spotify Player that generates a colour palette and a music visualizer for each
 ## **Installation**
 
 - npm install react-router-dom@6
-- npm install -D tailwindcss postcss autoprefixer
+- npm install tailwindcss
 - npm install axios
