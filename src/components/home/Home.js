@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <div>
-      <div class="block max-w-3xl p-10 bg-stone-900 border border-gray-200 rounded-md shadow">
+      <div class="block max-w-3xl p-10 bg-stone-800 border border-gray-200 rounded-md shadow">
         <h5 class="mb-2 text-4xl font-extrabold tracking-tight text-white">
           {greeting}, <span class="text-green-500">{username}</span>
         </h5>
