@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardBody, CardFooter, Typography } from '@material-tailwind/react';
 
 export default function Playlist() {
   const [playlistImage, setPlaylistImage] = useState();
