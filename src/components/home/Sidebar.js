@@ -36,7 +36,7 @@ export default function Sidebar() {
             <li>
               <a
                 href="#"
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-stone-800"
+                class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ export default function Sidebar() {
             <li>
               <a
                 href="#"
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-stone-800"
+                class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +88,7 @@ export default function Sidebar() {
             <li>
               <a
                 href="#"
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-stone-800"
+                class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
