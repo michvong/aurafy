@@ -17,7 +17,7 @@ export default function Playlist() {
               alt="Playlist image"
             />
           ) : (
-            <div class="w-36 h-36 bg-gray-300 flex justify-center items-center">
+            <div class="w-36 h-36 bg-gray-400 flex justify-center items-center">
               <img src={Music} alt="Music icon" style={{ width: '50%', height: '50%' }} />
             </div>
           )}
