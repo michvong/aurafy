@@ -1,11 +1,119 @@
 import React, { useEffect, useState } from 'react';
+import SpotifyWebApi from 'spotify-web-api-js';
+
+const spotifyApi = new SpotifyWebApi();
 
 export default function NavBar() {
-  const [userIcon, setUserIcon] = useState();
+  const [userIcon, setUserIcon] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [username, setUsername] = useState('Guest');
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const hash = window.location.hash
+      .substring(1)
+      .split('&')
+      .reduce((initial, item) => {
+        if (item) {
+          const parts = item.split('=');
+          initial[parts[0]] = decodeURIComponent(parts[1]);
+        }
+        return initial;
+      }, {});
+
+    window.location.hash = '';
+
+    const accessToken = hash.access_token;
+
+    if (accessToken) {
+      setToken({
+        access_token: accessToken,
+        expires_at: Date.now() + hash.expires_in * 1000,
+        refresh_token: hash.refresh_token,
+      });
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token.access_token) {
+      spotifyApi.setAccessToken(token.access_token);
+      fetchUserInfo();
+      const timeout = token.expires_at - Date.now() - 30000; // Refresh token 30 seconds before it expires
+      const refreshTokenInterval = setInterval(refreshAccessToken, timeout);
+      return () => clearInterval(refreshTokenInterval);
+    }
+  }, [token]);
+
+  const refreshAccessToken = () => {
+    const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+    const clientSecret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
+
+    const authString = `${clientId}:${clientSecret}`;
+    const encodedAuthString = Buffer.from(authString).toString('base64');
+
+    fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${encodedAuthString}`,
+      },
+      body: `grant_type=refresh_token&refresh_token=${token.refresh_token}`,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setToken({
+          access_token: data.access_token,
+          expires_at: Date.now() + data.expires_in * 1000,
+          refresh_token: token.refresh_token,
+        });
+        spotifyApi.setAccessToken(data.access_token);
+      })
+      .catch((error) => {
+        console.log('Error refreshing access token:', error);
+      });
+  };
+
+  const fetchUserInfo = () => {
+    try {
+      spotifyApi.getMe().then((response) => {
+        console.log('getMe response:', response);
+        if (response.display_name && response.email) {
+          setUsername(response.display_name);
+          setEmail(response.email);
+          if (response.images && response.images.length > 0) {
+            setUserIcon(response.images[0].url);
+          }
+        }
+      });
+    } catch (error) {
+      console.log('getMe error:', error);
+    }
+  };
+
+  const handleSignIn = () => {
+    const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
+    const redirect_uri = 'http://localhost:3000/navbar';
+    const scopes = ['user-read-private', 'user-read-email'];
+
+    let url = 'https://accounts.spotify.com/authorize';
+    url += '?response_type=token';
+    url += '&client_id=' + encodeURIComponent(client_id);
+    url += '&scope=' + encodeURIComponent(scopes.join(' '));
+    url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
+
+    window.location = url;
+  };
+
+  const handleSignOut = () => {
+    setIsLoggedIn(false);
+    setToken('');
+    setUsername('Guest');
+    setEmail('');
+    setUserIcon('');
+  };
 
   return (
     <div>
@@ -87,12 +195,12 @@ export default function NavBar() {
                 </li>
               </ul>
               <div class="py-2">
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white"
+                <button
+                  className="text-left block w-full px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white"
+                  onClick={isLoggedIn ? handleSignOut : handleSignIn}
                 >
                   {isLoggedIn ? 'Sign out' : 'Sign in'}
-                </a>
+                </button>
               </div>
             </div>
           </div>
