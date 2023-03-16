@@ -1,4 +1,4 @@
-import spotifyApi from './auth';
+import { spotifyApi } from './auth';
 
 const refreshAccessToken = async (token, setToken) => {
   const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;

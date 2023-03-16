@@ -1,8 +1,8 @@
-import auth from './auth';
+import { spotifyApi } from './auth';
 
 const getUserInfo = async () => {
   try {
-    const response = await auth.spotifyApi.getMe();
+    const response = await spotifyApi.getMe();
     console.log('getMe response:', response);
     return response;
   } catch (err) {

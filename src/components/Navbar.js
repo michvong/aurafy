@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import SpotifyWebApi from 'spotify-web-api-js';
-import refreshAccessToken from '../services/middleware';
 import api from '../services/api';
-
-const spotifyApi = new SpotifyWebApi();
+import { authenticate, useAccessToken, useRefreshToken } from '../services/auth';
 
 export default function NavBar() {
   const [userIcon, setUserIcon] = useState('');
@@ -13,67 +10,20 @@ export default function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState('');
 
-  useEffect(() => {
-    const hash = window.location.hash
-      .substring(1)
-      .split('&')
-      .reduce((initial, item) => {
-        if (item) {
-          const parts = item.split('=');
-          initial[parts[0]] = decodeURIComponent(parts[1]);
-        }
-        return initial;
-      }, {});
-    window.location.hash = '';
-
-    const accessToken = hash.access_token;
-    if (accessToken) {
-      setToken({
-        access_token: accessToken,
-        expires_at: Date.now() + hash.expires_in * 1000,
-        refresh_token: hash.refresh_token,
-      });
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (token.access_token) {
-      spotifyApi.setAccessToken(token.access_token);
-      updateUserInfo();
-      const timeout = token.expires_at - Date.now() - 30000; // Refresh token 30 seconds before it expires
-      const refreshTokenInterval = setInterval(refreshAccessToken, timeout);
-      return () => clearInterval(refreshTokenInterval);
-    }
-  }, [token]);
-
   const updateUserInfo = async () => {
-    try {
-      const userInfo = await api.getUserInfo();
-      console.log('userInfo:', userInfo);
-      setUsername(userInfo.display_name);
-      setEmail(userInfo.email);
-      if (userInfo.images && userInfo.images.length > 0) {
-        setUserIcon(userInfo.images[0].url);
-      }
-    } catch (err) {
-      console.log('Error updating user info', err);
-      throw err;
+    const userInfo = await api.getUserInfo();
+    setUsername(userInfo.display_name);
+    setEmail(userInfo.email);
+    if (userInfo.images && userInfo.images.length > 0) {
+      setUserIcon(userInfo.images[0].url);
     }
   };
 
+  useAccessToken(token, setToken, setIsLoggedIn);
+  useRefreshToken(token, updateUserInfo);
+
   const handleSignIn = () => {
-    const client_id = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-    const redirect_uri = 'http://localhost:3000/navbar';
-    const scopes = ['user-read-private', 'user-read-email'];
-
-    let url = 'https://accounts.spotify.com/authorize';
-    url += '?response_type=token';
-    url += '&client_id=' + encodeURIComponent(client_id);
-    url += '&scope=' + encodeURIComponent(scopes.join(' '));
-    url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
-
-    window.location = url;
+    authenticate();
   };
 
   const handleSignOut = () => {
