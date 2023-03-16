@@ -149,17 +149,17 @@ export default function NavBar() {
             >
               <div class="px-4 py-3 text-sm text-white">
                 <div>{username}</div>
-                <div class="font-medium truncate">{isLoggedIn ? email : null}</div>
+                <div class="text-xs truncate">{isLoggedIn ? email : null}</div>
               </div>
               <ul class="py-2 text-sm text-gray-200" aria-labelledby="dropdownUserAvatarButton">
                 <li>
                   <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">
-                    Home
+                    Settings
                   </a>
                 </li>
                 <li>
                   <a href="#" class="block px-4 py-2 hover:bg-gray-600 hover:text-white">
-                    Settings
+                    About
                   </a>
                 </li>
               </ul>
