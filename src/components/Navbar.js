@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
+import refreshAccessToken from '../services/middleware';
+import api from '../services/api';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -22,11 +24,9 @@ export default function NavBar() {
         }
         return initial;
       }, {});
-
     window.location.hash = '';
 
     const accessToken = hash.access_token;
-
     if (accessToken) {
       setToken({
         access_token: accessToken,
@@ -40,56 +40,25 @@ export default function NavBar() {
   useEffect(() => {
     if (token.access_token) {
       spotifyApi.setAccessToken(token.access_token);
-      fetchUserInfo();
+      updateUserInfo();
       const timeout = token.expires_at - Date.now() - 30000; // Refresh token 30 seconds before it expires
       const refreshTokenInterval = setInterval(refreshAccessToken, timeout);
       return () => clearInterval(refreshTokenInterval);
     }
   }, [token]);
 
-  const refreshAccessToken = () => {
-    const clientId = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-    const clientSecret = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
-
-    const authString = `${clientId}:${clientSecret}`;
-    const encodedAuthString = Buffer.from(authString).toString('base64');
-
-    fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${encodedAuthString}`,
-      },
-      body: `grant_type=refresh_token&refresh_token=${token.refresh_token}`,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setToken({
-          access_token: data.access_token,
-          expires_at: Date.now() + data.expires_in * 1000,
-          refresh_token: token.refresh_token,
-        });
-        spotifyApi.setAccessToken(data.access_token);
-      })
-      .catch((error) => {
-        console.log('Error refreshing access token:', error);
-      });
-  };
-
-  const fetchUserInfo = () => {
+  const updateUserInfo = async () => {
     try {
-      spotifyApi.getMe().then((response) => {
-        console.log('getMe response:', response);
-        if (response.display_name && response.email) {
-          setUsername(response.display_name);
-          setEmail(response.email);
-          if (response.images && response.images.length > 0) {
-            setUserIcon(response.images[0].url);
-          }
-        }
-      });
-    } catch (error) {
-      console.log('getMe error:', error);
+      const userInfo = await api.getUserInfo();
+      console.log('userInfo:', userInfo);
+      setUsername(userInfo.display_name);
+      setEmail(userInfo.email);
+      if (userInfo.images && userInfo.images.length > 0) {
+        setUserIcon(userInfo.images[0].url);
+      }
+    } catch (err) {
+      console.log('Error updating user info', err);
+      throw err;
     }
   };
 
