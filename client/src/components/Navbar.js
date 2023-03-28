@@ -7,10 +7,10 @@ export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    handleUpdateUserInfo();
+    handleUpdateUserInfoOnSignIn();
   }, []);
 
-  const handleUpdateUserInfo = async () => {
+  const handleUpdateUserInfoOnSignIn = async () => {
     try {
       const response = await api.getUserInfo();
       const updatedUserInfo = {
@@ -27,7 +27,7 @@ export default function NavBar() {
   const handleSignIn = async () => {
     try {
       const response = await api.login();
-      await handleUpdateUserInfo();
+      await handleUpdateUserInfoOnSignIn();
       const authorizeURL = response.data.authorizeURL;
       window.location.href = authorizeURL;
     } catch (error) {
@@ -35,13 +35,23 @@ export default function NavBar() {
     }
   };
 
-  const handleSignOut = () => {
+  const handleUpdateUserInfoOnSignOut = async () => {
     const updatedUserInfo = {
       userIcon: null,
       username: null,
       email: null,
     };
     updateUserInfo(updatedUserInfo);
+  };
+
+  const handleSignOut = async () => {
+    // try {
+    //   const response = await api.logout();
+    await handleUpdateUserInfoOnSignOut();
+    //   window.location.href = response.data;
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   return (
