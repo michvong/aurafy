@@ -1,7 +1,6 @@
 const spotifyApi = require('../services/spotifyApi');
 
 const getUserInfo = async (req, res, next) => {
-  console.log('getUserInfo (index.js)');
   try {
     const userInfo = await spotifyApi.getUserInfo();
     res.json(userInfo);
