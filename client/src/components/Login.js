@@ -1,17 +1,20 @@
 import React, { useEffect, useContext } from 'react';
 import api from '../services/api';
 import { UserInfoContext } from '../contexts/UserInfo';
+import { UserPlaylistsContext } from '../contexts/UserPlaylists';
 
 export default function LoginButton() {
   const { userInfo, updateUserInfo } = useContext(UserInfoContext);
+  const { userPlaylists, updateUserPlaylists } = useContext(UserPlaylistsContext);
 
   useEffect(() => {
     if (!userInfo.username) {
-      handleUpdateUserInfoOnSignIn();
+      handleUpdateUserInfo();
+      handleUpdateUserPlaylists();
     }
   }, [userInfo]);
 
-  const handleUpdateUserInfoOnSignIn = async () => {
+  const handleUpdateUserInfo = async () => {
     try {
       const response = await api.getUserInfo();
       const updatedUserInfo = {
@@ -25,10 +28,21 @@ export default function LoginButton() {
     }
   };
 
+  const handleUpdateUserPlaylists = async () => {
+    try {
+      const response = await api.getUserPlaylists();
+      console.log(response);
+      updateUserPlaylists(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSignIn = async () => {
     try {
       const response = await api.login();
-      await handleUpdateUserInfoOnSignIn();
+      await handleUpdateUserInfo();
+      await handleUpdateUserPlaylists();
       const authorizeURL = response.data.authorizeURL;
       window.location.href = authorizeURL;
     } catch (error) {

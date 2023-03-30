@@ -7,6 +7,6 @@ const router = express.Router();
 router.use(updateAccessToken);
 
 router.get('/user', controller.getUserInfo);
-router.get('/playlist', controller.getPlaylists);
+router.get('/playlists', controller.getPlaylists);
 
 module.exports = router;
