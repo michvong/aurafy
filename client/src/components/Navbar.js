@@ -1,58 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
-import api from '../services/api';
 import { UserInfoContext } from '../contexts/UserInfo';
+import LoginButton from './Login';
+import LogoutButton from './Logout';
 
 export default function NavBar() {
-  const { userInfo, updateUserInfo } = useContext(UserInfoContext);
+  const { userInfo } = useContext(UserInfoContext);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    handleUpdateUserInfoOnSignIn();
-  }, []);
-
-  const handleUpdateUserInfoOnSignIn = async () => {
-    try {
-      const response = await api.getUserInfo();
-      const updatedUserInfo = {
-        userIcon: response.data.images?.[0]?.url,
-        username: response.data.display_name,
-        email: response.data.email,
-      };
-      updateUserInfo(updatedUserInfo);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleSignIn = async () => {
-    try {
-      const response = await api.login();
-      await handleUpdateUserInfoOnSignIn();
-      const authorizeURL = response.data.authorizeURL;
-      window.location.href = authorizeURL;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleUpdateUserInfoOnSignOut = async () => {
-    const updatedUserInfo = {
-      userIcon: null,
-      username: null,
-      email: null,
-    };
-    updateUserInfo(updatedUserInfo);
-  };
-
-  const handleSignOut = async () => {
-    // try {
-    //   const response = await api.logout();
-    await handleUpdateUserInfoOnSignOut();
-    //   window.location.href = response.data;
-    // } catch (error) {
-    //   console.error(error);
-    // }
-  };
+    console.log('userInfo changed:', userInfo);
+  }, [userInfo]);
 
   return (
     <>
@@ -139,14 +96,7 @@ export default function NavBar() {
                   </a>
                 </li>
               </ul>
-              <div class="py-2">
-                <button
-                  className="text-left block w-full px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white"
-                  onClick={userInfo?.username ? handleSignOut : handleSignIn}
-                >
-                  {userInfo?.username ? 'Sign out' : 'Sign in'}
-                </button>
-              </div>
+              <div class="py-2">{userInfo?.username ? <LogoutButton /> : <LoginButton />}</div>
             </div>
           </div>
         </div>
