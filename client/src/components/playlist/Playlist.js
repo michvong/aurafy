@@ -27,44 +27,54 @@ export default function Playlist({ playlistId }) {
 
   return (
     <div>
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div class="relative overflow-x-auto shadow-md">
+        <table class="table-fixed text-sm truncate text-white">
+          <thead class="text-xs uppercase bg-stone-800 text-white">
             <tr>
-              <th scope="col" class="p-4">
+              <th scope="col" class="p-4 text-left">
                 <div class="flex items-center">#</div>
               </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" class="px-4 py-4 text-left">
                 Title
               </th>
-              <th scope="col" class="px-6 py-3">
-                Album
-              </th>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" class="px-4 py-4 text-left">
                 Palette
               </th>
-              <th scope="col" class="px-6 py-3">
-                Duration
+              <th scope="col" class="px-4 py-4 flex justify-end">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
               </th>
             </tr>
           </thead>
           <tbody>
             {playlist.tracks.items.map((item) => (
-              <tr key={item.track.id} className="bg-gray-100">
-                <td className="border px-4 py-2">{trackNumberCounter++}</td>
-                <td className="border px-4 py-2 flex items-center">
+              <tr key={item.track.id} class="bg-stone-700">
+                <td class="px-4 py-2">{trackNumberCounter++}</td>
+                <td class="px-4 py-2 flex items-center">
                   <img
                     src={item.track.album.images[0].url}
                     alt={`${item.track.album.name} album cover`}
-                    className="mr-2 w-10 h-10"
+                    class="mr-4 w-10 h-10"
                   />
-                  {item.track.name}
+                  <div class="flex flex-col">
+                    <div>{item.track.name}</div>
+                    <div>{item.track.artists.map((artist) => artist.name).join(', ')}</div>
+                  </div>
                 </td>
-                <td className="border px-4 py-2">
-                  {item.track.artists.map((artist) => artist.name).join(', ')}
-                </td>
-                <td className="border px-4 py-2">{item.track.album.name}</td>
-                <td className="border px-4 py-2">
+                <td class="px-4 py-2 text-left">_ _ _ _ _</td>
+                <td class="px-4 py-2 text-right">
                   {msToMinutesAndSeconds(item.track.duration_ms)}
                 </td>
               </tr>
