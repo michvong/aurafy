@@ -21,6 +21,8 @@ const getUserInfo = async () => {
 };
 
 const getPlaylists = async () => {
+  const accessToken = await redisClient.get('accessToken');
+  spotifyApi.setAccessToken(accessToken);
   try {
     const {
       body: { items: playlists },

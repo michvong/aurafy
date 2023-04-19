@@ -15,6 +15,7 @@ const getPlaylists = async (req, res, next) => {
     const playlists = await spotifyApi.getPlaylists();
     res.json(playlists);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

@@ -1,8 +1,8 @@
 const config = require('../utils/config');
 const express = require('express');
 const SpotifyWebApi = require('spotify-web-api-node');
-const querystring = require('querystring');
 const { redisClient } = require('../store');
+
 const router = express.Router();
 
 const spotifyApi = new SpotifyWebApi({
@@ -11,7 +11,6 @@ const spotifyApi = new SpotifyWebApi({
   clientSecret: config.CLIENT_SECRET,
 });
 
-// Redirect the user to the Spotify authorization page
 router.get('/login', (req, res) => {
   console.log('Login function called successfully');
   const scopes = [
@@ -39,7 +38,6 @@ router.get('/login', (req, res) => {
   res.send({ authorizeURL });
 });
 
-// Handle the callback after the user grants authorization
 router.get('/callback', async (req, res, next) => {
   try {
     console.log('Callback function called successfully');
@@ -53,16 +51,18 @@ router.get('/callback', async (req, res, next) => {
     spotifyApi.setAccessToken(data.body.access_token);
     spotifyApi.setRefreshToken(data.body.refresh_token);
 
-    res.redirect(
-      `http://localhost:${config.CLIENT_PORT}/navbar?` +
-        querystring.stringify({
-          access_token: data.body.access_token,
-          refresh_token: data.body.refresh_token,
-        })
-    );
+    res.redirect(`http://localhost:${config.CLIENT_PORT}/navbar?`);
   } catch (error) {
     next(error);
   }
+});
+
+router.get('/logout', (req, res) => {
+  console.log('Logout function called successfully');
+  redisClient.del('accessToken', 'refreshToken', 'expiryTime');
+  spotifyApi.resetAccessToken();
+  spotifyApi.resetRefreshToken();
+  res.send(`http://localhost:${config.CLIENT_PORT}/navbar`);
 });
 
 module.exports = router;
