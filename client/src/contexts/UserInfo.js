@@ -27,11 +27,10 @@ const UserInfoProvider = (props) => {
     fetchUserInfo();
   }, []);
 
-  const updateUserInfo = (newInfo, userStatus) => {
+  const updateUserInfo = (newInfo) => {
     setUserInfo((prevUserInfo) => ({
       ...prevUserInfo,
       ...newInfo,
-      isSignedIn: userStatus,
     }));
   };
 
