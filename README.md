@@ -6,6 +6,8 @@ A Spotify Player that generates a colour palette and a music visualizer for each
 
 - React
 - Tailwind
+- Express
+- Redis
 
 ## **Installation**
 
