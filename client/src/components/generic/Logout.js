@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import api from '../services/api';
-import { UserInfoContext } from '../contexts/UserInfo';
-import { UserPlaylistsContext } from '../contexts/UserPlaylists';
+import api from '../../services/api';
+import { UserInfoContext } from '../../contexts/UserInfo';
+import { UserPlaylistsContext } from '../../contexts/UserPlaylists';
 
 export default function LogoutButton() {
   const { userInfo, updateUserInfo } = useContext(UserInfoContext);

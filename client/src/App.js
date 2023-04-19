@@ -5,8 +5,8 @@ import { UserInfoProvider } from './contexts/UserInfo';
 import { UserPlaylistsProvider } from './contexts/UserPlaylists';
 
 import Home from './components/home/Welcome';
-import NavBar from './components/Navbar';
-import Sidebar from './components/Sidebar';
+import NavBar from './components/generic/Navbar';
+import Sidebar from './components/generic/Sidebar';
 import PlaylistItem from './components/home/PlaylistItem';
 import Playlist from './components/playlist/Playlist';
 

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { UserInfoContext } from '../contexts/UserInfo';
-import LoginButton from './Login';
-import LogoutButton from './Logout';
+import { UserInfoContext } from '../../contexts/UserInfo';
+import LoginButton from '../generic/Login';
+import LogoutButton from '../generic/Logout';
 
 export default function NavBar() {
   const { userInfo } = useContext(UserInfoContext);
