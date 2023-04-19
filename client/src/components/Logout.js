@@ -1,33 +1,34 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import api from '../services/api';
 import { UserInfoContext } from '../contexts/UserInfo';
+import { UserPlaylistsContext } from '../contexts/UserPlaylists';
 
-export default function LoginButton() {
+export default function LogoutButton() {
   const { userInfo, updateUserInfo } = useContext(UserInfoContext);
+  const { userPlaylists, updateUserPlaylists } = useContext(UserPlaylistsContext);
 
-  //   useEffect(() => {
-  //     if (userInfo.username) {
-  //       handleUpdateUserInfoOnSignOut();
-  //     }
-  //   }, [userInfo]);
-
-  const handleUpdateUserInfoOnSignOut = async () => {
+  const handleUpdateUserInfo = async () => {
     const updatedUserInfo = {
       userIcon: null,
       username: null,
       email: null,
     };
-    updateUserInfo(updatedUserInfo);
+    updateUserInfo(updatedUserInfo, false);
+  };
+
+  const handleUpdateUserPlaylists = async () => {
+    updateUserPlaylists(null);
   };
 
   const handleSignOut = async () => {
-    // try {
-    //   const response = await api.logout();
-    // await handleUpdateUserInfoOnSignOut();
-    //   window.location.href = response.data;
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const response = await api.logout();
+      await handleUpdateUserInfo();
+      await handleUpdateUserPlaylists();
+      window.location.href = response.data;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

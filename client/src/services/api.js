@@ -6,13 +6,25 @@ const login = async () => {
   return response;
 };
 
+const logout = async () => {
+  const response = await axios.get('http://localhost:8000/logout');
+  return response;
+};
+
 const getUserInfo = async () => {
   // const { data } = await axios.get('/api/user');
   const response = await axios.get('http://localhost:8000/user');
   return response;
 };
 
+const getUserPlaylists = async () => {
+  const response = await axios.get('http://localhost:8000/playlists');
+  return response;
+};
+
 export default {
   login,
+  logout,
   getUserInfo,
+  getUserPlaylists,
 };

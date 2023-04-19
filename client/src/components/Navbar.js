@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserInfoContext } from '../contexts/UserInfo';
 import LoginButton from './Login';
 import LogoutButton from './Logout';
@@ -6,10 +6,6 @@ import LogoutButton from './Logout';
 export default function NavBar() {
   const { userInfo } = useContext(UserInfoContext);
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    console.log('userInfo changed:', userInfo);
-  }, [userInfo]);
 
   return (
     <>

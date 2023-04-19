@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../services/api';
 
 const UserInfoContext = React.createContext();
 
@@ -9,8 +10,29 @@ const UserInfoProvider = (props) => {
     email: null,
   });
 
-  const updateUserInfo = (newInfo) => {
-    setUserInfo((prevUserInfo) => ({ ...prevUserInfo, ...newInfo }));
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await api.getUserInfo();
+        updateUserInfo({
+          userIcon: response.data.images?.[0]?.url,
+          username: response.data.display_name,
+          email: response.data.email,
+        });
+      } catch (err) {
+        console.log('User is not logged in');
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
+  const updateUserInfo = (newInfo, userStatus) => {
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      ...newInfo,
+      isSignedIn: userStatus,
+    }));
   };
 
   return (
