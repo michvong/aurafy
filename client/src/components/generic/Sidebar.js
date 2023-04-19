@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserPlaylistsContext } from '../../contexts/UserPlaylists';
 
 export default function Sidebar() {
-  const { playlists, updatePlaylists } = useContext(UserPlaylistsContext);
+  const { userPlaylists } = useContext(UserPlaylistsContext);
 
   return (
     <div>
@@ -31,10 +31,10 @@ export default function Sidebar() {
 
       <aside
         id="default-sidebar"
-        class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        class="fixed top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
-        <div class="h-full px-3 py-4 overflow-y-auto bg-stone-900">
+        <div class="h-full px-3 py-4 bg-stone-900">
           <ul class="space-y-2">
             <li>
               <a
@@ -111,35 +111,26 @@ export default function Sidebar() {
                 <span class="ml-3 text-white">About</span>
               </a>
             </li>
-            <hr class="h-px my-8 bg-stone-600 border-0" />
           </ul>
-          <ul class="space-y-2">
-            {playlists.map((playlist) => (
-              <li key={playlist.id}>
-                <a
-                  href={playlist.external_urls.spotify}
-                  class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="white"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M11.25 11.25l.041-.02a.75.75 0 011.063.02l3.81 3.809a.75.75 0 01-1.06 1.06l-3.071-3.07-3.038 3.037a.75.75 0 11-1.06-1.06l3.038-3.038-3.07-3.071a.75.75 0 01-.02-1.063l.02-.041a.75.75 0 011.063-.02l3.071 3.07 3.038-3.038a.75.75 0 111.06 1.06l-3.038 3.038 3.071 3.071a.75.75 0 01.02 1.063l-.02.041a.75.75 0 01-1.063.02l-3.071-3.07-3.809-3.81a.75.75 0 01-.02-1.063l.02-.041a.75.75 0 011.063-.02l3.81 3.81z"
-                    />
-                  </svg>
 
-                  <span class="ml-3 text-white">{playlist.name}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <hr class="h-px my-3 bg-stone-600 border-0" />
+
+          <span class="ml-1 mb-2 text-sm text-white font-extrabold">PLAYLISTS</span>
+
+          <div class="overflow-y-auto max-h-[600px]">
+            <ul>
+              {userPlaylists.map((playlist) => (
+                <li key={playlist.id}>
+                  <a
+                    href="#"
+                    class="flex items-center py-2 text-sm font-normal text-gray-900 rounded-lg hover:bg-stone-800"
+                  >
+                    <span class="ml-1 text-white">{playlist.name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </aside>
     </div>

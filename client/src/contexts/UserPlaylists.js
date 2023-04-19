@@ -19,8 +19,9 @@ const UserPlaylistsProvider = (props) => {
     fetchUserPlaylists();
   }, []);
 
-  const updateUserPlaylists = (newInfo) => {
-    setUserPlaylists((prevUserPlaylists) => ({ ...prevUserPlaylists, ...newInfo }));
+  const updateUserPlaylists = (newPlaylists) => {
+    setUserPlaylists(newPlaylists);
+    // console.log(newInfo);
   };
 
   return (
