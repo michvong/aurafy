@@ -1,9 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 
-export default function Playlist({ playlistInfo }) {
+export default function Playlist({ playlistId }) {
   let trackNumberCounter = 1;
-  const [playlist, setPlaylist] = useState(playlistInfo);
+  const [playlist, setPlaylist] = useState([]);
+
+  useEffect(() => {
+    const fetchPlaylist = async () => {
+      try {
+        const response = await api.getPlaylist('0AJVitHkUYFcpb7jvLqr64');
+        console.log(response);
+        setPlaylist(response.data);
+      } catch (err) {
+        // console.log(err);
+      }
+    };
+
+    fetchPlaylist();
+  }, []);
 
   const msToMinutesAndSeconds = (ms) => {
     const minutes = Math.floor(ms / 60000);

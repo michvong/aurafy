@@ -8,5 +8,6 @@ router.use(updateAccessToken);
 
 router.get('/user', controller.getUserInfo);
 router.get('/playlists', controller.getPlaylists);
+router.get('/playlist/:id', controller.getPlaylist);
 
 module.exports = router;

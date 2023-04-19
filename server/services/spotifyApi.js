@@ -13,7 +13,6 @@ const getUserInfo = async () => {
   spotifyApi.setAccessToken(accessToken);
   try {
     const { body: user } = await spotifyApi.getMe();
-    console.log("Retrieved user's information");
     return user;
   } catch (error) {
     throw new Error(`Failed to get user's information: ${error.message}`);
@@ -33,7 +32,20 @@ const getPlaylists = async () => {
   }
 };
 
+const getPlaylist = async (playlistId) => {
+  const accessToken = await redisClient.get('accessToken');
+  spotifyApi.setAccessToken(accessToken);
+  try {
+    const { body: playlist } = await spotifyApi.getPlaylist(playlistId);
+    console.log("Retrieved playlist's information");
+    return playlist;
+  } catch (error) {
+    throw new Error(`Failed to get playlist: ${error.message}`);
+  }
+};
+
 module.exports = {
   getUserInfo,
   getPlaylists,
+  getPlaylist,
 };
