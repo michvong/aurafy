@@ -13,7 +13,7 @@ export default function LogoutButton() {
       username: null,
       email: null,
     };
-    updateUserInfo(updatedUserInfo, false);
+    updateUserInfo(updatedUserInfo);
   };
 
   const handleUpdateUserPlaylists = async () => {

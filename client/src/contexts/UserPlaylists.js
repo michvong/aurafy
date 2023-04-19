@@ -20,7 +20,6 @@ const UserPlaylistsProvider = (props) => {
   }, []);
 
   const updateUserPlaylists = (newInfo) => {
-    console.log('Updating user playlists...\n', newInfo);
     setUserPlaylists((prevUserPlaylists) => ({ ...prevUserPlaylists, ...newInfo }));
   };
 

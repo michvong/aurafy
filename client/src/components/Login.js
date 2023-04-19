@@ -5,39 +5,36 @@ import { UserPlaylistsContext } from '../contexts/UserPlaylists';
 
 export default function LoginButton() {
   const { userInfo, updateUserInfo } = useContext(UserInfoContext);
-  // const { userPlaylists, updateUserPlaylists } = useContext(UserPlaylistsContext);
+  const { userPlaylists, updateUserPlaylists } = useContext(UserPlaylistsContext);
 
   const handleUpdateUserInfo = async () => {
     try {
       const response = await api.getUserInfo();
-      updateUserInfo(
-        {
-          userIcon: response.data.images?.[0]?.url,
-          username: response.data.display_name,
-          email: response.data.email,
-        },
-        true
-      );
-    } catch (error) {
-      console.error(error);
+      updateUserInfo({
+        userIcon: response.data.images?.[0]?.url,
+        username: response.data.display_name,
+        email: response.data.email,
+      });
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  // const handleUpdateUserPlaylists = async () => {
-  //   try {
-  //     const response = await api.getUserPlaylists();
-  //     //   console.log(response);
-  //     await updateUserPlaylists(response.data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const handleUpdateUserPlaylists = async () => {
+    try {
+      const response = await api.getUserPlaylists();
+      updateUserPlaylists(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleSignIn = async () => {
     try {
       const response = await api.login();
       const authorizeURL = response.data.authorizeURL;
       await handleUpdateUserInfo();
+      await handleUpdateUserPlaylists();
       window.location.href = authorizeURL;
     } catch (error) {
       console.error(error);
