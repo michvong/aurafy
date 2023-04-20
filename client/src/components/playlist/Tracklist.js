@@ -27,9 +27,9 @@ export default function Tracklist({ playlistId }) {
 
   return (
     <div>
-      <div class="relative overflow-x-auto shadow-md">
-        <table class="table-auto text-sm truncate text-white">
-          <thead class="text-xs uppercase bg-stone-900 text-white">
+      <div class="relative overflow-x-auto">
+        <table class="h-full w-full table-auto text-sm truncate text-white">
+          <thead class="text-xs uppercase bg-transparent text-white">
             <tr>
               <th scope="col" class="px-4 py-4 text-right">
                 #
@@ -67,11 +67,11 @@ export default function Tracklist({ playlistId }) {
               </tr>
             ) : (
               playlist.tracks.items.map((item) => (
-                <tr key={item.track.id} class="group bg-stone-800 hover:bg-stone-700">
+                <tr key={item.track.id} class="group bg-transparent hover:bg-stone-800/50">
                   <td class="px-4 py-2">
-                    <div class="relative">
-                      <span class="group-hover:text-transparent">{trackNumberCounter++}</span>
-                      <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <div class="relative text-right">
+                      <span class="pr-1 group-hover:text-transparent">{trackNumberCounter++}</span>
+                      <div class="absolute right-0 bottom-0 opacity-0 group-hover:opacity-100">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="18"
@@ -88,7 +88,7 @@ export default function Tracklist({ playlistId }) {
                       </div>
                     </div>
                   </td>
-                  <td class="px-4 py-2 flex items-center">
+                  <td class="pr-4 py-2 flex items-center">
                     <img
                       src={item.track.album.images[0].url}
                       alt={`${item.track.album.name} album cover`}
