@@ -24,7 +24,6 @@ const getUserPlaylists = async () => {
 
 const getPlaylist = async (playlistId) => {
   const response = await axios.get(`http://localhost:8000/playlist/${playlistId}`);
-  // const response = await axios.get('http://localhost:8000/playlist/0AJVitHkUYFcpb7jvLqr64');
   return response;
 };
 
