@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 
+// pass the actual playlist later
 export default function Playlist({ playlistId }) {
   let trackNumberCounter = 1;
-  const [playlist, setPlaylist] = useState([]);
+  const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
 
   useEffect(() => {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist('0AJVitHkUYFcpb7jvLqr64');
-        console.log(response);
         setPlaylist(response.data);
       } catch (err) {
         // console.log(err);
@@ -58,7 +58,6 @@ export default function Playlist({ playlistId }) {
               </th>
             </tr>
           </thead>
-          <hr class="h-px bg-stone-700" />
           <tbody>
             {playlist.tracks.items.map((item) => (
               <tr key={item.track.id} class="group bg-stone-800 hover:bg-stone-700">
