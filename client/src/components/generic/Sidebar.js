@@ -91,7 +91,7 @@ export default function Sidebar() {
             <li>
               <a
                 href="#"
-                class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
+                class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition ease-in-out delay-120 hover:bg-stone-800 duration-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -123,7 +123,7 @@ export default function Sidebar() {
                 <li key={playlist.id}>
                   <a
                     href="#"
-                    class="flex items-center py-2 text-sm font-normal text-gray-900 rounded-lg hover:bg-stone-800"
+                    class="flex items-center py-2 text-sm font-normal text-gray-900 rounded-lg transition ease-in-out delay-120 hover:bg-stone-800 duration-150"
                   >
                     <span class="ml-1 text-white">{playlist.name}</span>
                   </a>
