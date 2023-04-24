@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { UserInfoContext } from '../../contexts/UserInfo';
 
 export default function Home() {
   const [greeting, setGreeting] = useState();
-  const [username, setUsername] = useState('user');
+  const { userInfo } = useContext(UserInfoContext);
 
   useEffect(() => {
     const date = new Date();
@@ -20,7 +21,7 @@ export default function Home() {
     <div>
       <div class="block max-w-full p-10 bg-stone-800 border border-gray-200 rounded-md shadow">
         <h5 class="mb-2 text-4xl font-extrabold tracking-tight text-white">
-          {greeting}, <span class="text-green-500">{username}</span>
+          {greeting}, <span class="text-green-500">{userInfo.username}</span>
         </h5>
         <p class="font-normal text-gray-200">
           "Aurafy" this environment based on songs in your playlists.
