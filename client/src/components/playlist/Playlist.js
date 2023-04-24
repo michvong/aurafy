@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import Tracklist from './Tracklist';
 import api from '../../services/api';
+import colours from '../../services/colours';
 
 export default function Playlist({ playlistId }) {
   const [playlist, setPlaylist] = useState(null);
   const [totalDuration, setTotalDuration] = useState(0);
+  const [playlistColour, setPlaylistColour] = useState('');
 
   useEffect(() => {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist('0AJVitHkUYFcpb7jvLqr64');
-        console.log(response.data);
         setPlaylist(response.data);
 
         const totalDuration = response.data.tracks.items.reduce((acc, item) => {
           return acc + item.track.duration_ms;
         }, 0);
         setTotalDuration(formatDuration(totalDuration));
+
+        colours
+          .getDominantColour(response.data.images[0].url)
+          .then((dominantColour) => {
+            setPlaylistColour(dominantColour);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       } catch (err) {
         // console.log(err);
       }
@@ -42,7 +52,13 @@ export default function Playlist({ playlistId }) {
 
   return (
     <div>
-      <div class="block max-w-full p-10 bg-gradient-to-b from-blue-500 from-10% via-stone-900 via-30% to-stone-900 shadow">
+      <div
+        className={`block max-w-full p-10 ${
+          playlistColour
+            ? `bg-gradient-to-b from-[${playlistColour}] from-10% via-stone-900 via-30% to-stone-900`
+            : 'bg-gradient-to-b from-stone-200 from-10% via-stone-900 via-30% to-stone-900'
+        } shadow`}
+      >
         <div class="flex items-center mb-6">
           <img
             src={playlist?.images[0].url}
