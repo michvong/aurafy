@@ -67,17 +67,20 @@ export default function Tracklist({ playlistId }) {
               </tr>
             ) : (
               playlist.tracks.items.map((item) => (
-                <tr key={item.track.id} class="group bg-transparent hover:bg-stone-800/50">
+                <tr
+                  key={item.track.id}
+                  class="group bg-transparent transition ease-in-out delay-120 hover:bg-stone-800/50 duration-150"
+                >
                   <td class="px-4 py-2">
                     <div class="relative text-right">
                       <span class="pr-1 group-hover:text-transparent">{trackNumberCounter++}</span>
                       <div class="absolute right-0 bottom-0 opacity-0 group-hover:opacity-100">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="18"
-                          height="18"
+                          width="16"
+                          height="16"
                           viewBox="0 0 24 24"
-                          fill="none"
+                          fill="white"
                           stroke="#ffffff"
                           stroke-width="2"
                           stroke-linecap="round"
