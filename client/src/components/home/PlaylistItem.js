@@ -1,10 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Music from '../../assets/music.svg';
+import api from '../../services/api';
 
-export default function PlaylistItem() {
+export default function PlaylistItem({ playlistId }) {
   const [playlistImage, setPlaylistImage] = useState();
   const [playlistName, setPlaylistName] = useState('Playlist name');
   const [playlistDesc, setPlaylistDesc] = useState('Playlist description');
+
+  useEffect(() => {
+    const fetchPlaylist = async () => {
+      try {
+        const response = await api.getPlaylist(playlistId);
+        setPlaylistImage(response.data.images[0].url);
+        setPlaylistName(response.data.name);
+        setPlaylistDesc(response.data.description);
+      } catch (err) {
+        // console.log(err);
+      }
+    };
+
+    fetchPlaylist();
+  }, []);
 
   return (
     <div>
