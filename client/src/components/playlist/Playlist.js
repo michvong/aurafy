@@ -12,6 +12,7 @@ export default function Playlist({ playlistId }) {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist('0AJVitHkUYFcpb7jvLqr64');
+        console.log(response.data);
         setPlaylist(response.data);
 
         const totalDuration = response.data.tracks.items.reduce((acc, item) => {

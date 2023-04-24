@@ -8,6 +8,7 @@ import Home from './components/home/Welcome';
 import NavBar from './components/generic/Navbar';
 import Sidebar from './components/generic/Sidebar';
 import PlaylistItem from './components/home/PlaylistItem';
+import PlaylistList from './components/home/PlaylistList';
 import Playlist from './components/playlist/Playlist';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             <Route path="home" element={<Home />}></Route>
             <Route path="navbar" element={<NavBar />}></Route>
             <Route path="sidebar" element={<Sidebar />}></Route>
+            <Route path="playlist-list" element={<PlaylistList />}></Route>
             <Route path="playlist-item" element={<PlaylistItem />}></Route>
             <Route path="playlist" element={<Playlist />}></Route>
           </Routes>
