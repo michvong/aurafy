@@ -11,17 +11,16 @@ export default memo(function Controller() {
 
   const player = useSpotifyPlayer();
   const webPlaybackSDKReady = useWebPlaybackSDKReady();
-  const device = usePlayerDevice();
+  // const device = usePlayerDevice();
 
-  // useEffect(() => {
-  //   console.log('SDK is ready!');
-  //   // player.connect();
-  //   console.log(player);
-  //   console.log(device);
-  // }, []);
-
-  if (player === null) return null;
-  // if (device === null) return null;
+  useEffect(() => {
+    if (player !== null && webPlaybackSDKReady) {
+      console.log('Player connected successfully!');
+      console.log(player);
+      console.log(webPlaybackSDKReady);
+      // console.log(device);
+    }
+  }, [player, webPlaybackSDKReady]);
 
   const handleDurationChange = (event) => {
     setSongDuration(event.target.value);
