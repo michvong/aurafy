@@ -1,10 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
+import { useSpotifyPlayer } from 'react-spotify-web-playback-sdk';
 
-export default function Controller() {
+export default memo(function Controller() {
   const [songDuration, setSongDuration] = useState(20);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const player = useSpotifyPlayer();
+
+  if (player === null) return null;
+  console.log(player);
+
   const handleDurationChange = (event) => {
     setSongDuration(event.target.value);
   };
+
+  const handlePlaybackChange = () => {
+    if (isPlaying) {
+      setIsPlaying(false);
+    } else {
+      setIsPlaying(true);
+    }
+    player.togglePlay();
+  };
+
   return (
     <>
       <div class="flex flex-col items-center">
@@ -25,7 +42,7 @@ export default function Controller() {
             </svg>
           </button>
 
-          <button class="p-3">
+          <button onClick={() => player.previousTrack()} class="p-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -42,24 +59,44 @@ export default function Controller() {
             </svg>
           </button>
 
-          <button class="p-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#ffffff"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <circle cx="12" cy="12" r="10"></circle>
-              <polygon points="10 8 16 12 10 16 10 8"></polygon>
-            </svg>
-          </button>
+          {isPlaying ? (
+            <button onClick={handlePlaybackChange} class="p-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="10" y1="15" x2="10" y2="9"></line>
+                <line x1="14" y1="15" x2="14" y2="9"></line>
+              </svg>
+            </button>
+          ) : (
+            <button onClick={handlePlaybackChange} class="p-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+            </button>
+          )}
 
-          <button class="p-3">
+          <button onClick={() => player.nextTrack()} class="p-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -121,4 +158,4 @@ export default function Controller() {
       </div>
     </>
   );
-}
+});

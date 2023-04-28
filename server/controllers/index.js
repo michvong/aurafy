@@ -1,4 +1,15 @@
 const spotifyApi = require('../services/spotifyApi');
+const { redisClient } = require('../store');
+
+const getAccessToken = async (req, res, next) => {
+  try {
+    const accessToken = await redisClient.get('accessToken');
+    res.json(accessToken);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
 
 const getUserInfo = async (req, res, next) => {
   try {
@@ -32,6 +43,7 @@ const getPlaylist = async (req, res, next) => {
 };
 
 module.exports = {
+  getAccessToken,
   getUserInfo,
   getPlaylists,
   getPlaylist,

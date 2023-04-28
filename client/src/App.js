@@ -10,6 +10,7 @@ import Sidebar from './components/generic/Sidebar';
 import PlaylistItem from './components/home/PlaylistItem';
 import PlaylistList from './components/home/PlaylistList';
 import Playlist from './components/playlist/Playlist';
+import Player from './components/player/Player';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="playlist-list" element={<PlaylistList />}></Route>
             <Route path="playlist-item" element={<PlaylistItem />}></Route>
             <Route path="playlist" element={<Playlist />}></Route>
+            <Route path="player" element={<Player />}></Route>
           </Routes>
         </BrowserRouter>
       </UserPlaylistsProvider>

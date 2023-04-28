@@ -11,6 +11,11 @@ const logout = async () => {
   return response;
 };
 
+const getAccessToken = async () => {
+  const response = await axios.get('http://localhost:8000/access-token');
+  return response;
+};
+
 const getUserInfo = async () => {
   // const { data } = await axios.get('/api/user');
   const response = await axios.get('http://localhost:8000/user');
@@ -30,6 +35,7 @@ const getPlaylist = async (playlistId) => {
 export default {
   login,
   logout,
+  getAccessToken,
   getUserInfo,
   getUserPlaylists,
   getPlaylist,

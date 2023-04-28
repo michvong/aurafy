@@ -5,6 +5,7 @@ export default function SongDetails() {
   const [currentImage, setCurrentImage] = useState();
   const [currentSong, setCurrentSong] = useState('Song Title');
   const [currentArtist, setCurrentArtist] = useState('Artist');
+
   return (
     <>
       <div class="flex items-center">
