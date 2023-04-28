@@ -1,13 +1,27 @@
 import React, { useState, useEffect, memo } from 'react';
-import { useSpotifyPlayer } from 'react-spotify-web-playback-sdk';
+import {
+  useSpotifyPlayer,
+  useWebPlaybackSDKReady,
+  usePlayerDevice,
+} from 'react-spotify-web-playback-sdk';
 
 export default memo(function Controller() {
   const [songDuration, setSongDuration] = useState(20);
   const [isPlaying, setIsPlaying] = useState(false);
+
   const player = useSpotifyPlayer();
+  const webPlaybackSDKReady = useWebPlaybackSDKReady();
+  const device = usePlayerDevice();
+
+  // useEffect(() => {
+  //   console.log('SDK is ready!');
+  //   // player.connect();
+  //   console.log(player);
+  //   console.log(device);
+  // }, []);
 
   if (player === null) return null;
-  console.log(player);
+  // if (device === null) return null;
 
   const handleDurationChange = (event) => {
     setSongDuration(event.target.value);
