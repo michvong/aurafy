@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { UserInfoContext } from '../../contexts/UserInfo';
 import LoginButton from '../generic/Login';
 import LogoutButton from '../generic/Logout';
+import Navigation from '../generic/Navigation';
 
 export default function NavBar() {
   const { userInfo } = useContext(UserInfoContext);
@@ -9,8 +10,9 @@ export default function NavBar() {
 
   return (
     <>
-      <nav class="fixed top-0 bg-stone-900 px-3 py-1 w-full">
-        <div class="flex justify-end">
+      <nav class="top-0 bg-stone-900 border-b border-stone-700 px-3 py-1 w-full">
+        <div class="flex flex-row justify-between items-center">
+          <Navigation />
           <div className="relative">
             <button
               onClick={() => setIsOpen(!isOpen)}
