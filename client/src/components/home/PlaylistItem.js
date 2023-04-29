@@ -35,7 +35,7 @@ export default function PlaylistItem({ playlistId }) {
             <>
               <img
                 src={playlistImage}
-                class="rounded-md w-36 h-36 bg-stone-500"
+                class="rounded-t-md w-36 h-36 bg-stone-500"
                 alt="Playlist image"
               />
               <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100">
