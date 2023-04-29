@@ -37,14 +37,16 @@ export default function Controller() {
   }, [playbackState]);
 
   const handleDurationChange = (event) => {
-    const newPosition = event.target.value;
+    if (playbackState !== null) {
+      const newPosition = event.target.value;
 
-    const endDurationMS = playbackState?.track_window?.current_track?.duration_ms;
-    const seekDuration = (newPosition / 100) * endDurationMS;
-    const formattedSeekDuration = formatDurationMS(seekDuration);
+      const endDurationMS = playbackState?.track_window?.current_track?.duration_ms;
+      const seekDuration = (newPosition / 100) * endDurationMS;
+      const formattedSeekDuration = formatDurationMS(seekDuration);
 
-    setCurrentDuration(formattedSeekDuration);
-    player.seek(seekDuration);
+      setCurrentDuration(formattedSeekDuration);
+      player.seek(seekDuration);
+    }
   };
 
   const handleShuffleState = () => {
@@ -71,7 +73,7 @@ export default function Controller() {
     <>
       <div class="flex flex-col items-center">
         <div class="flex items-center -mb-3">
-          <button onClick={handleShuffleState} class="p-6 hover:scale-125">
+          <button onClick={handleShuffleState} class="p-6 hover:scale-125 focus:scale-95">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -87,7 +89,7 @@ export default function Controller() {
             </svg>
           </button>
 
-          <button onClick={() => player.previousTrack()} class="p-3 hover:scale-110">
+          <button onClick={() => player.previousTrack()} class="p-3 hover:scale-110 focus:scale-95">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -106,7 +108,7 @@ export default function Controller() {
           </button>
 
           {isPlaying ? (
-            <button onClick={() => player.togglePlay()} class="p-3 hover:scale-110">
+            <button onClick={() => player.togglePlay()} class="p-3 hover:scale-110 focus:scale-95">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="40"
@@ -124,7 +126,7 @@ export default function Controller() {
               </svg>
             </button>
           ) : (
-            <button onClick={() => player.togglePlay()} class="p-3 hover:scale-110">
+            <button onClick={() => player.togglePlay()} class="p-3 hover:scale-110 focus:scale-95">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="40"
@@ -142,7 +144,7 @@ export default function Controller() {
             </button>
           )}
 
-          <button onClick={() => player.nextTrack()} class="p-3 hover:scale-110">
+          <button onClick={() => player.nextTrack()} class="p-3 hover:scale-110 focus:scale-95">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -160,7 +162,7 @@ export default function Controller() {
             </svg>
           </button>
 
-          <button onClick={handleRepeatState} class="p-6 hover:scale-125">
+          <button onClick={handleRepeatState} class="p-6 hover:scale-125 focus:scale-95">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
