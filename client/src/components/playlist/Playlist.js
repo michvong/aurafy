@@ -39,6 +39,7 @@ export default function Playlist({ playlistId }) {
     };
 
     setIsLoading(true);
+    setPlaylistColour('');
     fetchPlaylist();
   }, [playlistId]);
 
@@ -68,7 +69,7 @@ export default function Playlist({ playlistId }) {
   return (
     <div>
       <div
-        className={`block max-w-full p-10 ${
+        className={`max-w-full p-10 ${
           playlistColour
             ? `bg-gradient-to-b from-[${playlistColour}] from-10% via-stone-800 via-30% to-stone-800`
             : 'bg-gradient-to-b from-stone-200 from-10% via-stone-800 via-30% to-stone-800'
@@ -92,7 +93,7 @@ export default function Playlist({ playlistId }) {
             </div>
           </div>
         </div>
-        <div class="bg-gradient-to-b from-stone-800/50 from-20% via-stone-800/50 via-30% to-stone-800">
+        <div class="min-h-screen bg-gradient-to-b from-stone-800/50 from-20% via-stone-800/50 via-30% to-stone-800">
           <Tracklist playlistId={playlistId} />
         </div>
       </div>

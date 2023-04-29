@@ -25,6 +25,10 @@ export default function Tracklist({ playlistId }) {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
+  if (playlist.tracks.items.length === 0) {
+    return <div class="text-center text-white text-sm py-10">Nothing to see here.</div>;
+  }
+
   return (
     <div>
       <div class="relative overflow-x-auto">
@@ -59,58 +63,50 @@ export default function Tracklist({ playlistId }) {
             </tr>
           </thead>
           <tbody>
-            {playlist.tracks.items.length === 0 ? (
-              <tr key="empty-playlist">
-                <td class="text-center text-sm px-4 py-2" col-span="4">
-                  <div class="mb-4">Playlist is empty</div>
+            {playlist.tracks.items.map((item, index) => (
+              <tr
+                key={item.track.id || index}
+                class="group bg-transparent transition ease-in-out delay-120 hover:bg-stone-700/50 duration-150"
+              >
+                <td class="px-4 py-2">
+                  <div class="relative text-center">
+                    <span class="pr-1 group-hover:text-transparent">{trackNumberCounter++}</span>
+                    <div class="flex justify-center absolute left-0 right-0 bottom-0 opacity-0 group-hover:opacity-100">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="white"
+                        stroke="#ffffff"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                      </svg>
+                    </div>
+                  </div>
+                </td>
+                <td class="pr-4 py-2 flex items-center">
+                  <img
+                    src={item.track.album.images[0]?.url}
+                    alt={`${item.track.album.name} album cover`}
+                    class="mr-4 w-10 h-10"
+                  />
+                  <div class="flex flex-col">
+                    <div class="font-semibold text-white">{item.track.name}</div>
+                    <div class="text-stone-300">
+                      {item.track.artists.map((artist) => artist.name).join(', ')}
+                    </div>
+                  </div>
+                </td>
+                <td class="px-4 py-2 text-left">_ _ _ _ _</td>
+                <td class="px-4 py-2 text-right">
+                  {msToMinutesAndSeconds(item.track.duration_ms)}
                 </td>
               </tr>
-            ) : (
-              playlist.tracks.items.map((item, index) => (
-                <tr
-                  key={item.track.id || index}
-                  class="group bg-transparent transition ease-in-out delay-120 hover:bg-stone-700/50 duration-150"
-                >
-                  <td class="px-4 py-2">
-                    <div class="relative text-center">
-                      <span class="pr-1 group-hover:text-transparent">{trackNumberCounter++}</span>
-                      <div class="flex justify-center absolute left-0 right-0 bottom-0 opacity-0 group-hover:opacity-100">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="white"
-                          stroke="#ffffff"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        >
-                          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                        </svg>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="pr-4 py-2 flex items-center">
-                    <img
-                      src={item.track.album.images[0]?.url}
-                      alt={`${item.track.album.name} album cover`}
-                      class="mr-4 w-10 h-10"
-                    />
-                    <div class="flex flex-col">
-                      <div class="font-semibold text-white">{item.track.name}</div>
-                      <div class="text-stone-300">
-                        {item.track.artists.map((artist) => artist.name).join(', ')}
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-4 py-2 text-left">_ _ _ _ _</td>
-                  <td class="px-4 py-2 text-right">
-                    {msToMinutesAndSeconds(item.track.duration_ms)}
-                  </td>
-                </tr>
-              ))
-            )}
+            ))}
           </tbody>
         </table>
       </div>
