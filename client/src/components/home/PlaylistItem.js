@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Music from '../../assets/music.svg';
 import api from '../../services/api';
-import { useNavigate } from 'react-router-dom';
 
 export default function PlaylistItem({ playlistId, onPlaylistClick }) {
   const [playlistImage, setPlaylistImage] = useState();
   const [playlistName, setPlaylistName] = useState('Playlist name');
   const [playlistDesc, setPlaylistDesc] = useState('Playlist description');
   const [playlistPalette, setPlaylistPalette] = useState([]);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPlaylist = async () => {

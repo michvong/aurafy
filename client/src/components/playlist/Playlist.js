@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Tracklist from './Tracklist';
 import api from '../../services/api';
 import colours from '../../services/colours';
-import { useParams } from 'react-router-dom';
 
-export default function Playlist() {
-  const { playlistId } = useParams();
+export default function Playlist({ playlistId }) {
   const [playlist, setPlaylist] = useState(null);
   const [totalDuration, setTotalDuration] = useState(0);
   const [playlistColour, setPlaylistColour] = useState('');
