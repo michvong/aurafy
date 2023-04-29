@@ -1,10 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useSpotifyPlayer } from 'react-spotify-web-playback-sdk';
 
 export default function Volume() {
-  const [volume, setVolume] = useState(50);
+  const [currentVolume, setCurrentVolume] = useState(50);
+  const [prevVolume, setPrevVolume] = useState(50);
+
+  const player = useSpotifyPlayer();
 
   const handleVolumeChange = (event) => {
-    setVolume(event.target.value);
+    const newVolume = event.target.value;
+    setCurrentVolume(newVolume);
+    setPrevVolume(newVolume);
+    player.setVolume(newVolume / 100);
+  };
+
+  const handleVolumeClick = () => {
+    if (currentVolume === 0) {
+      setCurrentVolume(prevVolume);
+      player.setVolume(prevVolume / 100);
+    } else {
+      setCurrentVolume(0);
+      player.setVolume(0);
+    }
   };
 
   const VolumeIcon = ({ volume }) => {
@@ -64,22 +81,27 @@ export default function Volume() {
   return (
     <>
       <div class="flex items-center">
-        <VolumeIcon volume={volume} />
+        <button onClick={handleVolumeClick}>
+          <VolumeIcon volume={currentVolume} />
+        </button>
         <div class="mx-3 w-28 h-6 relative">
           <input
             type="range"
             min="0"
             max="100"
-            value={volume}
+            value={currentVolume}
             onChange={handleVolumeChange}
             class="w-full h-full absolute opacity-0 cursor-pointer z-10"
             id="volume-bar"
           />
           <div class="bg-gray-500 w-full h-1 absolute top-1/2 left-0 rounded-full transform -translate-y-1/2">
-            <div class="bg-green-500 h-full rounded-full" style={{ width: `${volume}%` }}></div>
+            <div
+              class="bg-green-500 h-full rounded-full"
+              style={{ width: `${currentVolume}%` }}
+            ></div>
             <div
               class="absolute w-3 h-3 bg-white rounded-full shadow-lg -top-1 left-1 transform -translate-x-1/2 cursor-pointer"
-              style={{ transform: `translateX(-50%)`, left: `${volume}%` }}
+              style={{ transform: `translateX(-50%)`, left: `${currentVolume}%` }}
               draggable="false"
             ></div>
           </div>
