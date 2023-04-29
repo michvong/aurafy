@@ -7,9 +7,9 @@ export default function PlaylistList() {
 
   return (
     <>
-      <div class="block max-w-full p-10 bg-stone-800">
-        <span class="text-3xl font-extrabold tracking-tight text-white">Your playlists</span>
-        <div class="flex mt-6 justify-evenly grid grid-rows-3 grid-flow-col gap-y-8 gap-x-6">
+      <div className="block max-w-full pb-10 pl-10 bg-stone-800">
+        <span className="text-3xl font-extrabold tracking-tight text-white">Your playlists</span>
+        <div className="grid grid-cols-5 gap-x-8 gap-y-8 mt-6">
           {userPlaylists.map((playlist) => (
             <PlaylistItem playlistId={playlist.id} key={playlist.id} />
           ))}

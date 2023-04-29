@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserInfoProvider } from './contexts/UserInfo';
 import { UserPlaylistsProvider } from './contexts/UserPlaylists';
 
+import Home from './pages';
 import Welcome from './components/home/Welcome';
 import NavBar from './components/generic/Navbar';
 import Sidebar from './components/generic/Sidebar';
@@ -18,7 +19,8 @@ function App() {
       <UserPlaylistsProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="Welcome" element={<Welcome />}></Route>
+            <Route path="home" element={<Home />}></Route>
+            <Route path="welcome" element={<Welcome />}></Route>
             <Route path="navbar" element={<NavBar />}></Route>
             <Route path="sidebar" element={<Sidebar />}></Route>
             <Route path="playlist-list" element={<PlaylistList />}></Route>

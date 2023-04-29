@@ -9,22 +9,12 @@ export default function NavBar() {
 
   return (
     <>
-      <nav class="bg-stone-900 border-gray-200 px-2 sm:px-4 py-2.5">
-        <div class="container flex flex-wrap items-center justify-between mx-auto">
-          <div class="flex items-center">
-            <img
-              src="https://em-content.zobj.net/thumbs/240/apple/325/crystal-ball_1f52e.png"
-              class="h-6 mr-3 sm:h-9"
-              alt="aurafy Logo"
-            />
-            <span class="self-center text-white text-xl font-semibold whitespace-nowrap">
-              aurafy
-            </span>
-          </div>
+      <nav class="fixed top-0 bg-stone-900 px-2 sm:px-4 py-2.5 w-full">
+        <div class="flex justify-end">
           <div className="relative">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="flex items-center text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
+              className="flex items-center text-sm p-1 border-2 border-transparent bg-stone-900 rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out"
             >
               <div className="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center">
                 {userInfo?.userIcon ? (
