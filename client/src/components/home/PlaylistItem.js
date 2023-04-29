@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Music from '../../assets/music.svg';
 import api from '../../services/api';
 
-export default function PlaylistItem({ playlistId, onPlaylistClick }) {
+export default function PlaylistItem({ playlistId }) {
   const [playlistImage, setPlaylistImage] = useState();
   const [playlistName, setPlaylistName] = useState('Playlist name');
   const [playlistDesc, setPlaylistDesc] = useState('Playlist description');
   const [playlistPalette, setPlaylistPalette] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPlaylist = async () => {
@@ -21,19 +25,11 @@ export default function PlaylistItem({ playlistId, onPlaylistClick }) {
     };
 
     fetchPlaylist();
-  }, []);
-
-  const handleClick = () => {
-    onPlaylistClick(playlistId);
-    // navigate(`${playlistId}`);
-  };
+  }, [playlistId]);
 
   return (
-    <div onClick={handleClick}>
-      <a
-        href="#"
-        class="relative flex flex-col flex-none items-center justify-items-center content-center block pb-10 bg-stone-700 rounded-md shadow transition ease-in-out delay-120 hover:bg-stone-500 duration-150"
-      >
+    <div onClick={() => navigate(`/${playlistId}`)}>
+      <div class="relative flex flex-col flex-none items-center justify-items-center content-center block pb-10 bg-stone-700 rounded-md shadow transition ease-in-out delay-120 hover:bg-stone-500 duration-150">
         <div class="flex justify-center content-center relative">
           {playlistImage ? (
             <>
@@ -79,7 +75,7 @@ export default function PlaylistItem({ playlistId, onPlaylistClick }) {
         <p class="text-center w-36 truncate mt-2 text-base font-bold tracking-tight text-white">
           {playlistName}
         </p>
-      </a>
+      </div>
     </div>
   );
 }

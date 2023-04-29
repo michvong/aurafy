@@ -20,13 +20,14 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="home" element={<Home />}></Route>
-            <Route path="welcome" element={<Welcome />}></Route>
+            <Route path=":playlistId" element={<Home />}></Route>
+            {/* <Route path="welcome" element={<Welcome />}></Route>
             <Route path="navbar" element={<NavBar />}></Route>
             <Route path="sidebar" element={<Sidebar />}></Route>
             <Route path="playlist-list" element={<PlaylistList />}></Route>
             <Route path="playlist-item" element={<PlaylistItem />}></Route>
             <Route path="playlist" element={<Playlist />}></Route>
-            <Route path="player" element={<Player />}></Route>
+            <Route path="player" element={<Player />}></Route> */}
           </Routes>
         </BrowserRouter>
       </UserPlaylistsProvider>

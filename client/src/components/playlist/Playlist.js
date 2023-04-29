@@ -37,8 +37,9 @@ export default function Playlist({ playlistId }) {
       }
     };
 
+    setIsLoading(true);
     fetchPlaylist();
-  }, []);
+  }, [playlistId]);
 
   const formatDuration = (ms) => {
     const totalSeconds = Math.floor(ms / 1000);

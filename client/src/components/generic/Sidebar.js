@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { UserPlaylistsContext } from '../../contexts/UserPlaylists';
 
 export default function Sidebar() {
+  const navigate = useNavigate();
   const { userPlaylists } = useContext(UserPlaylistsContext);
 
   return (
@@ -37,9 +39,9 @@ export default function Sidebar() {
         <div class="h-screen px-3 py-4 bg-stone-900">
           <ul class="space-y-2">
             <li>
-              <a
-                href="#"
-                class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
+              <button
+                onClick={() => navigate('/home')}
+                class="flex items-center w-full p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -57,12 +59,12 @@ export default function Sidebar() {
                 </svg>
 
                 <span class="ml-3 text-white">Home</span>
-              </a>
+              </button>
             </li>
             <li>
-              <a
-                href="#"
-                class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
+              <button
+                onClick={() => navigate('/home')}
+                class="flex items-center w-full p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -85,13 +87,13 @@ export default function Sidebar() {
                 </svg>
 
                 <span class="ml-3 text-white">Palette Score</span>
-              </a>
+              </button>
             </li>
 
             <li>
-              <a
-                href="#"
-                class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition ease-in-out delay-120 hover:bg-stone-800 duration-150"
+              <button
+                onClick={() => navigate('/home')}
+                class="flex items-center w-full p-2 text-base font-medium text-gray-900 rounded-lg hover:bg-stone-800"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +111,7 @@ export default function Sidebar() {
                 </svg>
 
                 <span class="ml-3 text-white">About</span>
-              </a>
+              </button>
             </li>
           </ul>
 
@@ -121,12 +123,12 @@ export default function Sidebar() {
             <ul>
               {userPlaylists.map((playlist) => (
                 <li key={playlist.id}>
-                  <a
-                    href="#"
-                    class="flex items-center py-2 text-sm font-normal text-gray-900 rounded-lg transition ease-in-out delay-120 hover:bg-stone-800 duration-150"
+                  <button
+                    onClick={() => navigate(`/${playlist.id}`)}
+                    class="flex items-center w-full py-2 text-sm font-normal text-gray-900 rounded-lg transition ease-in-out delay-120 hover:bg-stone-800 duration-150"
                   >
                     <span class="ml-1 text-white">{playlist.name}</span>
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
