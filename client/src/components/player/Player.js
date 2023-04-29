@@ -23,7 +23,7 @@ export default function Player() {
   }, []);
 
   return (
-    <div class="bottom-0 left-0 right-0 bg-stone-800 px-3 py-1 flex items-center justify-between">
+    <div class="bottom-0 left-0 right-0 bg-stone-800 border-t border-stone-700 px-3 py-1 flex items-center justify-between">
       <WebPlaybackSDK
         initialDeviceName="aurafy"
         getOAuthToken={getOAuthToken}

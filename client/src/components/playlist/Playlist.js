@@ -55,8 +55,8 @@ export default function Playlist({ playlistId }) {
       <div
         className={`block max-w-full p-10 ${
           playlistColour
-            ? `bg-gradient-to-b from-[${playlistColour}] from-10% via-stone-900 via-30% to-stone-900`
-            : 'bg-gradient-to-b from-stone-200 from-10% via-stone-900 via-30% to-stone-900'
+            ? `bg-gradient-to-b from-[${playlistColour}] from-10% via-stone-800 via-30% to-stone-800`
+            : 'bg-gradient-to-b from-stone-200 from-10% via-stone-800 via-30% to-stone-800'
         } shadow`}
       >
         <div class="flex items-center mb-6">
@@ -77,7 +77,7 @@ export default function Playlist({ playlistId }) {
             </div>
           </div>
         </div>
-        <div class="bg-gradient-to-b from-stone-900/50 from-20% via-stone-900/50 via-30% to-stone-900">
+        <div class="bg-gradient-to-b from-stone-800/50 from-20% via-stone-800/50 via-30% to-stone-800">
           <Tracklist playlistId={playlistId} />
         </div>
       </div>
