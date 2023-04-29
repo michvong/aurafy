@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Tracklist from './Tracklist';
 import api from '../../services/api';
 import colours from '../../services/colours';
+import Loading from '../generic/Loading';
 
 export default function Playlist({ playlistId }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [playlist, setPlaylist] = useState(null);
   const [totalDuration, setTotalDuration] = useState(0);
   const [playlistColour, setPlaylistColour] = useState('');
@@ -23,12 +25,15 @@ export default function Playlist({ playlistId }) {
           .getDominantColour(response.data.images[0].url)
           .then((dominantColour) => {
             setPlaylistColour(dominantColour);
+            setIsLoading(false);
           })
           .catch((error) => {
             console.error(error);
+            setIsLoading(false);
           });
       } catch (err) {
         console.log(err);
+        setIsLoading(false);
       }
     };
 
@@ -49,6 +54,14 @@ export default function Playlist({ playlistId }) {
       return `${seconds} sec`;
     }
   };
+
+  if (isLoading) {
+    return (
+      <div class="flex justify-center items-center pb-24 overflow-hidden overscroll-none bg-stone-800 h-screen">
+        <Loading />
+      </div>
+    );
+  }
 
   return (
     <div>

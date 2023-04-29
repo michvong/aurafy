@@ -1,13 +1,13 @@
 import React from 'react';
 
-export default function Loading({ text }) {
+export default function Loading() {
   return (
     <>
-      <div class="text-center">
+      <div class="flex justify-center items-center overflow-hidden overscroll-none">
         <div role="status">
           <svg
             aria-hidden="true"
-            class="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            class="inline w-12 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,6 @@ export default function Loading({ text }) {
               fill="currentFill"
             />
           </svg>
-          <span class="sr-only">{text}</span>
         </div>
       </div>
     </>

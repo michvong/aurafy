@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 
-// pass the actual playlist later
 export default function Tracklist({ playlistId }) {
   let trackNumberCounter = 1;
   const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
@@ -10,6 +9,7 @@ export default function Tracklist({ playlistId }) {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
+        console.log(response.data);
         setPlaylist(response.data);
       } catch (err) {
         // console.log(err);
@@ -17,7 +17,7 @@ export default function Tracklist({ playlistId }) {
     };
 
     fetchPlaylist();
-  }, []);
+  }, [playlistId]);
 
   const msToMinutesAndSeconds = (ms) => {
     const minutes = Math.floor(ms / 60000);
@@ -60,7 +60,7 @@ export default function Tracklist({ playlistId }) {
           </thead>
           <tbody>
             {playlist.tracks.items.length === 0 ? (
-              <tr>
+              <tr key="empty-playlist">
                 <td class="px-4 py-2" colspan="4">
                   Playlist is empty.
                 </td>
@@ -92,11 +92,11 @@ export default function Tracklist({ playlistId }) {
                     </div>
                   </td>
                   <td class="pr-4 py-2 flex items-center">
-                    <img
+                    {/* <img
                       src={item.track.album.images[0].url}
                       alt={`${item.track.album.name} album cover`}
                       class="mr-4 w-10 h-10"
-                    />
+                    /> */}
                     <div class="flex flex-col">
                       <div class="font-semibold text-white">{item.track.name}</div>
                       <div class="text-stone-300">
