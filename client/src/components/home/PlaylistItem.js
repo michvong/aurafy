@@ -32,14 +32,14 @@ export default function PlaylistItem({ playlistId, onPlaylistClick }) {
     <div onClick={handleClick}>
       <a
         href="#"
-        class="relative flex flex-col items-center justify-items-center content-center block px-2 pt-4 pb-10 w-44 bg-stone-700 rounded-md shadow transition ease-in-out delay-120 hover:bg-stone-500 duration-150"
+        class="relative flex flex-col flex-none items-center justify-items-center content-center block pb-10 bg-stone-700 rounded-md shadow transition ease-in-out delay-120 hover:bg-stone-500 duration-150"
       >
-        <div class="flex justify-center content-center mt-2 relative">
+        <div class="flex justify-center content-center relative">
           {playlistImage ? (
             <>
               <img
                 src={playlistImage}
-                class="rounded-md max-w-36 max-h-36 bg-stone-500"
+                class="rounded-md w-36 h-36 bg-stone-500"
                 alt="Playlist image"
               />
               <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100">
@@ -76,7 +76,9 @@ export default function PlaylistItem({ playlistId, onPlaylistClick }) {
           )}
         </div>
 
-        <h5 class="truncate mt-2 text-base font-bold tracking-tight text-white">{playlistName}</h5>
+        <p class="text-center w-36 truncate mt-2 text-base font-bold tracking-tight text-white">
+          {playlistName}
+        </p>
       </a>
     </div>
   );
