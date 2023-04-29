@@ -53,7 +53,7 @@ export default function PlaylistItem({ playlistId }) {
               </div>
             </>
           ) : (
-            <div class="rounded-md w-36 h-36 bg-stone-600 flex justify-center items-center">
+            <div class="rounded-t-md w-36 h-36 bg-stone-600 flex justify-center items-center">
               <img src={Music} alt="Music icon" style={{ width: '50%', height: '50%' }} />
               <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100">
                 <button class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white transition ease-in-out delay-120 hover:-translate-y-1 hover:scale-110 duration-150">

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Music from '../../assets/music.svg';
 import api from '../../services/api';
 
 export default function Tracklist({ playlistId }) {
@@ -89,11 +90,17 @@ export default function Tracklist({ playlistId }) {
                   </div>
                 </td>
                 <td class="pr-4 py-2 flex items-center">
-                  <img
-                    src={item.track.album.images[0]?.url}
-                    alt={`${item.track.album.name} album cover`}
-                    class="mr-4 w-10 h-10"
-                  />
+                  {item.track.album.images[0] ? (
+                    <img
+                      src={item.track.album.images[0]?.url}
+                      alt={`${item.track.album.name} album cover`}
+                      class="mr-4 w-10 h-10"
+                    />
+                  ) : (
+                    <div class="mr-4 w-10 h-10 bg-stone-600 flex justify-center items-center">
+                      <img src={Music} alt="Music icon" class=" w-4 h-4" />
+                    </div>
+                  )}
                   <div class="flex flex-col">
                     <div class="font-semibold text-white">{item.track.name}</div>
                     <div class="text-stone-300">

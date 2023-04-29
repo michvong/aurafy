@@ -72,7 +72,7 @@ export default function Playlist({ playlistId }) {
         className={`max-w-full p-10 ${
           playlistColour
             ? `bg-gradient-to-b from-[${playlistColour}] from-10% via-stone-800 via-30% to-stone-800`
-            : 'bg-gradient-to-b from-stone-200 from-10% via-stone-800 via-30% to-stone-800'
+            : 'bg-gradient-to-b from-stone-500 from-10% via-stone-800 via-30% to-stone-800'
         } shadow`}
       >
         <div class="flex items-center mb-6">
