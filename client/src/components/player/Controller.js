@@ -188,7 +188,7 @@ export default function Controller() {
               type="range"
               min="0"
               max="100"
-              value={currPositionOnBar}
+              value={String(currPositionOnBar)}
               onChange={handleDurationChange}
               class="w-full h-full absolute opacity-0 cursor-pointer z-10"
               id="duration-bar"

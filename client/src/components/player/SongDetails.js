@@ -11,7 +11,7 @@ export default function SongDetails() {
 
   useEffect(() => {
     if (playbackState !== null) {
-      console.log(playbackState);
+      // console.log(playbackState);
       setCurrentImage(playbackState.track_window.current_track.album.images[0].url);
       setCurrentSong(playbackState.track_window.current_track.name);
       setCurrentArtists(playbackState.track_window.current_track.artists);

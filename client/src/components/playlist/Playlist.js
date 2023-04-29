@@ -24,6 +24,7 @@ export default function Playlist({ playlistId }) {
         colours
           .getDominantColour(response.data.images[0].url)
           .then((dominantColour) => {
+            console.log(dominantColour);
             setPlaylistColour(dominantColour);
             setIsLoading(false);
           })

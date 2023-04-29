@@ -61,14 +61,14 @@ export default function Tracklist({ playlistId }) {
           <tbody>
             {playlist.tracks.items.length === 0 ? (
               <tr key="empty-playlist">
-                <td class="text-center text-sm px-4 py-2" colspan="4">
+                <td class="text-center text-sm px-4 py-2" col-span="4">
                   <div class="mb-4">Playlist is empty</div>
                 </td>
               </tr>
             ) : (
-              playlist.tracks.items.map((item) => (
+              playlist.tracks.items.map((item, index) => (
                 <tr
-                  key={item.track.id}
+                  key={item.track.id || index}
                   class="group bg-transparent transition ease-in-out delay-120 hover:bg-stone-700/50 duration-150"
                 >
                   <td class="px-4 py-2">
