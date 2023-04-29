@@ -93,7 +93,7 @@ export default function Tracklist({ playlistId }) {
                   </td>
                   <td class="pr-4 py-2 flex items-center">
                     <img
-                      src={item.track.album.images[0].url}
+                      src={item.track.album.images[0]?.url}
                       alt={`${item.track.album.name} album cover`}
                       class="mr-4 w-10 h-10"
                     />
