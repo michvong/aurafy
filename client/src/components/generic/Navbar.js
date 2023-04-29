@@ -9,7 +9,7 @@ export default function NavBar() {
 
   return (
     <>
-      <nav class="fixed top-0 bg-stone-900 px-2 sm:px-4 py-2.5 w-full">
+      <nav class="fixed top-0 bg-stone-900 px-3 py-2.5 w-full">
         <div class="flex justify-end">
           <div className="relative">
             <button

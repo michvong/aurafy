@@ -34,7 +34,7 @@ export default function Sidebar() {
         class="top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
-        <div class="h-full px-3 py-4 bg-stone-900">
+        <div class="h-screen px-3 py-4 bg-stone-900">
           <ul class="space-y-2">
             <li>
               <a
@@ -117,7 +117,7 @@ export default function Sidebar() {
 
           <span class="ml-1 mb-2 text-sm text-white font-extrabold">PLAYLISTS</span>
 
-          <div class="overflow-y-auto max-h-[600px]">
+          <div class="overflow-y-auto max-h-[530px]">
             <ul>
               {userPlaylists.map((playlist) => (
                 <li key={playlist.id}>

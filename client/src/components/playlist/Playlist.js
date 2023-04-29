@@ -77,8 +77,8 @@ export default function Playlist({ playlistId }) {
             </div>
           </div>
         </div>
-        <div class="bg-stone-900/75">
-          <Tracklist playlistId={'0AJVitHkUYFcpb7jvLqr64'} />
+        <div class="bg-gradient-to-b from-stone-900/50 from-20% via-stone-900/50 via-30% to-stone-900">
+          <Tracklist playlistId={playlistId} />
         </div>
       </div>
     </div>

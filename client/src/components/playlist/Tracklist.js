@@ -69,7 +69,7 @@ export default function Tracklist({ playlistId }) {
               playlist.tracks.items.map((item) => (
                 <tr
                   key={item.track.id}
-                  class="group bg-transparent transition ease-in-out delay-120 hover:bg-stone-800/50 duration-150"
+                  class="group bg-transparent transition ease-in-out delay-120 hover:bg-stone-700/50 duration-150"
                 >
                   <td class="px-4 py-2">
                     <div class="relative text-right">
