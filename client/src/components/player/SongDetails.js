@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Music from '../../assets/music.svg';
+import { usePlaybackState } from 'react-spotify-web-playback-sdk';
 
 export default function SongDetails() {
   const [currentImage, setCurrentImage] = useState();
   const [currentSong, setCurrentSong] = useState('Song Title');
-  const [currentArtist, setCurrentArtist] = useState('Artist');
+  const [currentArtists, setCurrentArtists] = useState([]);
+
+  const playbackState = usePlaybackState();
+
+  useEffect(() => {
+    if (playbackState !== null) {
+      console.log(playbackState);
+      setCurrentImage(playbackState.track_window.current_track.album.images[0].url);
+      setCurrentSong(playbackState.track_window.current_track.name);
+      setCurrentArtists(playbackState.track_window.current_track.artists);
+    }
+  }, [playbackState]);
 
   return (
     <>
@@ -24,7 +36,9 @@ export default function SongDetails() {
         )}
         <div class="flex flex-col">
           <span class="text-white font-medium text-base">{currentSong}</span>
-          <span class="text-gray-400 text-sm">{currentArtist}</span>
+          <span class="text-gray-400 text-sm">
+            {currentArtists.map((artist) => artist.name).join(', ')}
+          </span>
         </div>
       </div>
     </>

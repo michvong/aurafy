@@ -1,38 +1,48 @@
-import React, { useState, useEffect, memo } from 'react';
-import {
-  useSpotifyPlayer,
-  useWebPlaybackSDKReady,
-  usePlayerDevice,
-} from 'react-spotify-web-playback-sdk';
+import React, { useState, useEffect } from 'react';
+import { formatDurationMS } from '../../services/formatDurationMS';
+import { useSpotifyPlayer, usePlaybackState } from 'react-spotify-web-playback-sdk';
 
-export default memo(function Controller() {
-  const [songDuration, setSongDuration] = useState(20);
+export default function Controller() {
+  const [currentDuration, setCurrentDuration] = useState('0:00');
+  const [endDuration, setEndDuration] = useState('0:00');
+  const [currPositionOnBar, setCurrPositionOnBar] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const player = useSpotifyPlayer();
-  const webPlaybackSDKReady = useWebPlaybackSDKReady();
-  // const device = usePlayerDevice();
+  const playbackState = usePlaybackState({ interval: true });
 
   useEffect(() => {
-    if (player !== null && webPlaybackSDKReady) {
-      console.log('Player connected successfully!');
-      console.log(player);
-      console.log(webPlaybackSDKReady);
-      // console.log(device);
-    }
-  }, [player, webPlaybackSDKReady]);
+    const formattedEndDuration = formatDurationMS(
+      playbackState?.track_window?.current_track?.duration_ms || 0
+    );
+    setEndDuration(formattedEndDuration);
 
-  const handleDurationChange = (event) => {
-    setSongDuration(event.target.value);
-  };
+    const formattedCurrentDuration = formatDurationMS(playbackState?.position || 0);
+    setCurrentDuration(formattedCurrentDuration);
 
-  const handlePlaybackChange = () => {
-    if (isPlaying) {
+    const currentDurationMS = playbackState?.position;
+    const endDurationMS = playbackState?.track_window?.current_track?.duration_ms;
+
+    setCurrPositionOnBar((currentDurationMS / endDurationMS) * 100);
+  }, [playbackState]);
+
+  useEffect(() => {
+    if (playbackState?.paused) {
       setIsPlaying(false);
     } else {
       setIsPlaying(true);
     }
-    player.togglePlay();
+  }, [playbackState]);
+
+  const handleDurationChange = (event) => {
+    const newPosition = event.target.value;
+
+    const endDurationMS = playbackState?.track_window?.current_track?.duration_ms;
+    const seekDuration = (newPosition / 100) * endDurationMS;
+    const formattedSeekDuration = formatDurationMS(seekDuration);
+
+    setCurrentDuration(formattedSeekDuration);
+    player.seek(seekDuration);
   };
 
   return (
@@ -73,7 +83,7 @@ export default memo(function Controller() {
           </button>
 
           {isPlaying ? (
-            <button onClick={handlePlaybackChange} class="p-3">
+            <button onClick={() => player.togglePlay()} class="p-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="48"
@@ -91,7 +101,7 @@ export default memo(function Controller() {
               </svg>
             </button>
           ) : (
-            <button onClick={handlePlaybackChange} class="p-3">
+            <button onClick={() => player.togglePlay()} class="p-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="48"
@@ -146,29 +156,32 @@ export default memo(function Controller() {
         </div>
 
         <div class="flex flex-row items-center">
-          <span class="text-white text-xs">0:00</span>
+          <span class="text-white text-xs">{currentDuration}</span>
           <div class="mx-2 w-96 h-6 relative">
             <input
               type="range"
               min="0"
               max="100"
-              value={songDuration}
+              value={currPositionOnBar}
               onChange={handleDurationChange}
               class="w-full h-full absolute opacity-0 cursor-pointer z-10"
               id="duration-bar"
             />
             <div class="bg-gray-500 w-full h-1 absolute top-1/2 left-0 rounded-full transform -translate-y-1/2">
-              <div class="bg-white h-full rounded-full" style={{ width: `${songDuration}%` }}></div>
+              <div
+                class="bg-white h-full rounded-full"
+                style={{ width: `${currPositionOnBar}%` }}
+              ></div>
               <div
                 class="absolute w-3 h-3 bg-white rounded-full shadow-lg -top-1 left-1 transform -translate-x-1/2 cursor-pointer "
-                style={{ transform: `translateX(-50%)`, left: `${songDuration}%` }}
+                style={{ transform: `translateX(-50%)`, left: `${currPositionOnBar}%` }}
                 draggable="false"
               ></div>
             </div>
           </div>
-          <span class="text-white text-xs">3:30</span>
+          <span class="text-white text-xs">{endDuration}</span>
         </div>
       </div>
     </>
   );
-});
+}
