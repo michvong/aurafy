@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { UserPlaylistsContext } from '../../contexts/UserPlaylists';
 import PlaylistItem from './PlaylistItem';
 
-export default function PlaylistList() {
+export default function PlaylistList({ onPlaylistClick }) {
   const { userPlaylists } = useContext(UserPlaylistsContext);
 
   return (
@@ -11,7 +11,11 @@ export default function PlaylistList() {
         <span className="text-3xl font-extrabold tracking-tight text-white">Your playlists</span>
         <div className="grid grid-cols-5 gap-x-8 gap-y-8 mt-6">
           {userPlaylists.map((playlist) => (
-            <PlaylistItem playlistId={playlist.id} key={playlist.id} />
+            <PlaylistItem
+              playlistId={playlist.id}
+              key={playlist.id}
+              onPlaylistClick={onPlaylistClick}
+            />
           ))}
         </div>
       </div>

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Music from '../../assets/music.svg';
 import api from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 
-export default function PlaylistItem({ playlistId }) {
+export default function PlaylistItem({ playlistId, onPlaylistClick }) {
   const [playlistImage, setPlaylistImage] = useState();
   const [playlistName, setPlaylistName] = useState('Playlist name');
   const [playlistDesc, setPlaylistDesc] = useState('Playlist description');
   const [playlistPalette, setPlaylistPalette] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPlaylist = async () => {
@@ -23,8 +26,13 @@ export default function PlaylistItem({ playlistId }) {
     fetchPlaylist();
   }, []);
 
+  const handleClick = () => {
+    onPlaylistClick(playlistId);
+    // navigate(`${playlistId}`);
+  };
+
   return (
-    <div>
+    <div onClick={handleClick}>
       <a
         href="#"
         class="relative flex flex-col items-center justify-items-center content-center block px-2 pt-4 pb-10 w-44 bg-stone-700 rounded-md shadow transition ease-in-out delay-120 hover:bg-stone-500 duration-150"
