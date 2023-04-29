@@ -7,6 +7,8 @@ export default function Controller() {
   const [endDuration, setEndDuration] = useState('0:00');
   const [currPositionOnBar, setCurrPositionOnBar] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [shuffleState, setShuffleState] = useState(false);
+  const [repeatState, setRepeatState] = useState(0);
 
   const player = useSpotifyPlayer();
   const playbackState = usePlaybackState({ interval: true });
@@ -45,15 +47,35 @@ export default function Controller() {
     player.seek(seekDuration);
   };
 
+  const handleShuffleState = () => {
+    // player.toggleShuffle(!playbackState.shuffle);
+    // setShuffleState(!playbackState.shuffle);
+  };
+
+  const handleRepeatState = () => {
+    // if (playbackState.repeat_mode === 0) {
+    //   // 0 means repeat off
+    //   player.setRepeat(2); // setRepeat with 2 means repeat the current track
+    //   setRepeatState(2);
+    // } else if (playbackState.repeat_mode === 2) {
+    //   // 2 means repeat the current track
+    //   player.setRepeat(1); // setRepeat with 1 means repeat the context
+    //   setRepeatState(1);
+    // } else {
+    //   player.setRepeat(0); // setRepeat with 0 means repeat off
+    //   setRepeatState(0);
+    // }
+  };
+
   return (
     <>
       <div class="flex flex-col items-center">
-        <div class="flex items-center -mb-2">
-          <button class="p-6">
+        <div class="flex items-center -mb-3">
+          <button onClick={handleShuffleState} class="p-6 hover:scale-125">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#ffffff"
@@ -65,7 +87,7 @@ export default function Controller() {
             </svg>
           </button>
 
-          <button onClick={() => player.previousTrack()} class="p-3">
+          <button onClick={() => player.previousTrack()} class="p-3 hover:scale-110">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -73,9 +95,10 @@ export default function Controller() {
               viewBox="0 0 24 24"
               fill="white"
               stroke="#ffffff"
-              stroke-width="2"
+              stroke-width="1"
               stroke-linecap="round"
               stroke-linejoin="round"
+              class="hover:fill-current hover:text-green-500"
             >
               <polygon points="19 20 9 12 19 4 19 20"></polygon>
               <line x1="5" y1="19" x2="5" y2="5"></line>
@@ -83,11 +106,11 @@ export default function Controller() {
           </button>
 
           {isPlaying ? (
-            <button onClick={() => player.togglePlay()} class="p-3">
+            <button onClick={() => player.togglePlay()} class="p-3 hover:scale-110">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
+                width="40"
+                height="40"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#ffffff"
@@ -101,11 +124,11 @@ export default function Controller() {
               </svg>
             </button>
           ) : (
-            <button onClick={() => player.togglePlay()} class="p-3">
+            <button onClick={() => player.togglePlay()} class="p-3 hover:scale-110">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="48"
-                height="48"
+                width="40"
+                height="40"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#ffffff"
@@ -119,7 +142,7 @@ export default function Controller() {
             </button>
           )}
 
-          <button onClick={() => player.nextTrack()} class="p-3">
+          <button onClick={() => player.nextTrack()} class="p-3 hover:scale-110">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="22"
@@ -130,17 +153,18 @@ export default function Controller() {
               stroke-width="1"
               stroke-linecap="round"
               stroke-linejoin="round"
+              class="hover:fill-current hover:text-green-500"
             >
               <polygon points="5 4 15 12 5 20 5 4"></polygon>
               <line x1="19" y1="5" x2="19" y2="19"></line>
             </svg>
           </button>
 
-          <button class="p-6">
+          <button onClick={handleRepeatState} class="p-6 hover:scale-125">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#ffffff"

@@ -25,7 +25,7 @@ export default function SongDetails() {
           <>
             <img
               src={currentImage}
-              class="rounded-sm max-w-16 max-h-16 bg-stone-500 mr-4"
+              class="rounded-sm max-w-12 max-h-12 bg-stone-500 mr-4"
               alt="Playlist image"
             />
           </>
@@ -35,7 +35,7 @@ export default function SongDetails() {
           </div>
         )}
         <div class="flex flex-col">
-          <span class="text-white font-medium text-base">{currentSong}</span>
+          <span class="text-white text-sm text-base">{currentSong}</span>
           <span class="text-gray-400 text-sm">
             {currentArtists.map((artist) => artist.name).join(', ')}
           </span>
