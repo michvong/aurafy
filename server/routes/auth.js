@@ -51,7 +51,7 @@ router.get('/callback', async (req, res, next) => {
     spotifyApi.setAccessToken(data.body.access_token);
     spotifyApi.setRefreshToken(data.body.refresh_token);
 
-    res.redirect(`http://localhost:${config.CLIENT_PORT}/navbar?`);
+    res.redirect(`http://localhost:${config.CLIENT_PORT}/home`);
   } catch (error) {
     next(error);
   }
@@ -62,7 +62,7 @@ router.get('/logout', (req, res) => {
   redisClient.del('accessToken', 'refreshToken', 'expiryTime');
   spotifyApi.resetAccessToken();
   spotifyApi.resetRefreshToken();
-  res.send(`http://localhost:${config.CLIENT_PORT}/navbar`);
+  res.send(`http://localhost:${config.CLIENT_PORT}/`);
 });
 
 module.exports = router;

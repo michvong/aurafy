@@ -32,11 +32,12 @@ export default function LogoutButton() {
   };
 
   return (
-    <button
+    <a
+      href="/"
       className="text-left block w-full px-4 py-2 text-sm hover:bg-gray-600 text-gray-200 hover:text-white"
       onClick={handleSignOut}
     >
       Sign out
-    </button>
+    </a>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { UserInfoContext } from '../../contexts/UserInfo';
+import LoginButton from '../generic/Login';
 import NavBar from '../generic/Navbar';
 
 export default function Landing() {
@@ -18,13 +18,7 @@ export default function Landing() {
             playlists.
           </p>
           <div class="bg-gradient-to-r from-green-500 via-purple-500 to-emerald-500 animate-gradient-xy w-2/3 h-1/6 m-8 rounded-md" />
-          <a
-            href="/home"
-            class="mb-4 text-center text-2xl font-medium text-white group transition duration-300 font-mono"
-          >
-            {'<'} start here {'>'}
-            <span class="block max-w-0 group-hover:max-w-full transition-all duration-500 h-0.5 bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400"></span>
-          </a>
+          <LoginButton isLanding={true} />
           <a
             href="https://github.com/michvong/"
             class="text-center text-xs font-medium text-gray-400 group transition duration-300"

@@ -42,10 +42,30 @@ const getPlaylist = async (req, res, next) => {
   }
 };
 
-const playContext = async (req, res, next) => {
-  const { uri, id } = req.params;
+const transferPlayback = async (req, res, next) => {
+  const { id } = req.params;
   try {
-    await spotifyApi.playContext(uri, id);
+    await spotifyApi.transferPlayback(id);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+const playTrack = async (req, res, next) => {
+  const { track_uri, id } = req.params;
+  try {
+    await spotifyApi.playTrack(track_uri, id);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+const playContext = async (req, res, next) => {
+  const { context_uri, id } = req.params;
+  try {
+    await spotifyApi.playContext(context_uri, id);
   } catch (error) {
     console.log(error);
     next(error);
@@ -57,5 +77,7 @@ module.exports = {
   getUserInfo,
   getPlaylists,
   getPlaylist,
+  transferPlayback,
+  playTrack,
   playContext,
 };
