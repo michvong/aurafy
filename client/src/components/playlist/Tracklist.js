@@ -98,7 +98,7 @@ export default function Tracklist({ playlistId }) {
                     />
                   ) : (
                     <div class="mr-4 w-10 h-10 bg-stone-600 flex justify-center items-center">
-                      <img src={Music} alt="Music icon" class=" w-4 h-4" />
+                      <img src={Music} alt="Music icon" class="w-4 h-4" />
                     </div>
                   )}
                   <div class="flex flex-col">

@@ -16,9 +16,10 @@ export default function PlaylistItem({ playlistId }) {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        setPlaylistImage(response.data.images[0].url);
+        console.log(response);
         setPlaylistName(response.data.name);
-        setPlaylistDesc(response.data.description);
+        setPlaylistImage(response.data.images[0].url);
+        // setPlaylistDesc(response.data.description);
       } catch (err) {
         // console.log(err);
       }

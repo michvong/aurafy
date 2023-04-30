@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Music from '../../assets/music.svg';
 import Tracklist from './Tracklist';
 import api from '../../services/api';
 import colours from '../../services/colours';
@@ -22,7 +23,7 @@ export default function Playlist({ playlistId }) {
         setTotalDuration(formatDuration(totalDuration));
 
         colours
-          .getDominantColour(response.data.images[0].url)
+          .getDominantColour(response.data.images[0]?.url)
           .then((dominantColour) => {
             console.log(dominantColour);
             setPlaylistColour(dominantColour);
@@ -76,11 +77,17 @@ export default function Playlist({ playlistId }) {
         } shadow`}
       >
         <div class="flex items-center mb-6">
-          <img
-            src={playlist?.images[0].url}
-            alt={`${playlist?.name} playlist cover`}
-            class="mr-8 w-1/6 h-1/6"
-          />
+          {playlist?.images[0] ? (
+            <img
+              src={playlist?.images[0]?.url}
+              alt={`${playlist?.name} playlist cover`}
+              class="mr-8 w-1/6 h-1/6"
+            />
+          ) : (
+            <div class="mr-8 w-48 h-48 bg-stone-600 flex justify-center items-center">
+              <img src={Music} alt="Music icon" class="w-12 h-12" />
+            </div>
+          )}
           <div class="flex flex-col space-y-8">
             <span class="text-7xl font-extrabold tracking-tight text-white">{playlist?.name}</span>
             <div class="flex flex-col space-y-1">
