@@ -4,7 +4,7 @@ import LoginButton from '../generic/Login';
 import LogoutButton from '../generic/Logout';
 import Navigation from '../generic/Navigation';
 
-export default function NavBar() {
+export default function NavBar({ navigationHidden }) {
   const { userInfo } = useContext(UserInfoContext);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -12,7 +12,24 @@ export default function NavBar() {
     <>
       <nav class="top-0 bg-stone-900 border-b border-stone-700 px-3 py-1 w-full">
         <div class="flex flex-row justify-between items-center">
-          <Navigation />
+          {navigationHidden ? (
+            <div class="flex items-center">
+              <img
+                src="https://em-content.zobj.net/thumbs/240/apple/325/crystal-ball_1f52e.png"
+                class="max-h-6 mr-3"
+                alt="aurafy Logo"
+              />
+              <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+                aurafy
+              </span>
+              <div class="invisible">
+                <Navigation />
+              </div>
+            </div>
+          ) : (
+            <Navigation />
+          )}
+
           <div className="relative">
             <button
               onClick={() => setIsOpen(!isOpen)}

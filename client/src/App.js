@@ -12,6 +12,7 @@ import PlaylistItem from './components/home/PlaylistItem';
 import PlaylistList from './components/home/PlaylistList';
 import Playlist from './components/playlist/Playlist';
 import Player from './components/player/Player';
+import Landing from './components/landing/Landing';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <UserPlaylistsProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Landing />}></Route>
             <Route path="home" element={<Home />}></Route>
             <Route path=":playlistId" element={<Home />}></Route>
             {/* <Route path="welcome" element={<Welcome />}></Route>
