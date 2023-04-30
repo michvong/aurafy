@@ -42,9 +42,20 @@ const getPlaylist = async (req, res, next) => {
   }
 };
 
+const playContext = async (req, res, next) => {
+  const { uri, id } = req.params;
+  try {
+    await spotifyApi.playContext(uri, id);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 module.exports = {
   getAccessToken,
   getUserInfo,
   getPlaylists,
   getPlaylist,
+  playContext,
 };

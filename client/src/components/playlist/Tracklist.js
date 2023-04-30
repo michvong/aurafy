@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Music from '../../assets/music.svg';
 import api from '../../services/api';
+import { usePlayerDevice } from 'react-spotify-web-playback-sdk';
 
 export default function Tracklist({ playlistId }) {
   let trackNumberCounter = 1;
   const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
+  const playerDevice = usePlayerDevice();
 
   useEffect(() => {
+    console.log(playerDevice);
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        console.log(response.data);
+        // console.log(response.data);
         setPlaylist(response.data);
       } catch (err) {
         // console.log(err);
@@ -24,6 +27,15 @@ export default function Tracklist({ playlistId }) {
     const minutes = Math.floor(ms / 60000);
     const seconds = ((ms % 60000) / 1000).toFixed(0);
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  const handlePlayTrack = async (contextUri, deviceId) => {
+    console.log(contextUri);
+    try {
+      await api.playContext(contextUri, deviceId);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (playlist.tracks.items.length === 0) {
@@ -72,7 +84,10 @@ export default function Tracklist({ playlistId }) {
                 <td class="px-4 py-2">
                   <div class="relative text-center">
                     <span class="pr-1 group-hover:text-transparent">{trackNumberCounter++}</span>
-                    <div class="flex justify-center absolute left-0 right-0 bottom-0 opacity-0 group-hover:opacity-100">
+                    <button
+                      onClick={() => handlePlayTrack(item.track.uri, playerDevice.device_id)}
+                      class="flex justify-center absolute left-0 right-0 bottom-0 opacity-0 group-hover:opacity-100"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
@@ -86,7 +101,7 @@ export default function Tracklist({ playlistId }) {
                       >
                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                       </svg>
-                    </div>
+                    </button>
                   </div>
                 </td>
                 <td class="pr-4 py-2 flex items-center">

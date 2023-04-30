@@ -37,10 +37,20 @@ const getPlaylist = async (playlistId) => {
   spotifyApi.setAccessToken(accessToken);
   try {
     const { body: playlist } = await spotifyApi.getPlaylist(playlistId);
-    console.log("Retrieved playlist's information");
     return playlist;
   } catch (error) {
     throw new Error(`Failed to get playlist: ${error.message}`);
+  }
+};
+
+const playContext = async (contextUri, deviceId) => {
+  const accessToken = await redisClient.get('accessToken');
+  spotifyApi.setAccessToken(accessToken);
+  try {
+    await spotifyApi.play({ uris: [contextUri], device_id: deviceId });
+    console.log(`Playing context ${contextUri} on device ${deviceId}`);
+  } catch (error) {
+    throw new Error(`Failed to play context: ${error.message}`);
   }
 };
 
@@ -48,4 +58,5 @@ module.exports = {
   getUserInfo,
   getPlaylists,
   getPlaylist,
+  playContext,
 };

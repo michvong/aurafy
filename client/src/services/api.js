@@ -32,6 +32,10 @@ const getPlaylist = async (playlistId) => {
   return response;
 };
 
+const playContext = async (contextUri, deviceId) => {
+  await axios.get(`http://localhost:8000/${contextUri}/${deviceId}`);
+};
+
 export default {
   login,
   logout,
@@ -39,4 +43,5 @@ export default {
   getUserInfo,
   getUserPlaylists,
   getPlaylist,
+  playContext,
 };
