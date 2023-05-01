@@ -8,6 +8,7 @@ const UserInfoProvider = (props) => {
     userIcon: null,
     username: null,
     email: null,
+    hasCompletedGuide: false,
   });
 
   useEffect(() => {

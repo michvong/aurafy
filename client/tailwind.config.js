@@ -1,8 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-const withMT = require('@material-tailwind/react/utils/withMT');
 
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./src/**/*.{html,js,jsx,ts,tsx}', './node_modules/tw-elements/dist/js/**/*.js'],
   theme: {
     extend: {
       animation: {
@@ -44,5 +43,8 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animated')],
+  experimental: {
+    optimizeUniversalDefaults: true,
+  },
 };

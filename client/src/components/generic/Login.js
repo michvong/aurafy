@@ -14,6 +14,7 @@ export default function LoginButton({ isLanding }) {
         userIcon: response.data.images?.[0]?.url,
         username: response.data.display_name,
         email: response.data.email,
+        hasCompletedGuide: false,
       });
     } catch (err) {
       console.error(err);
