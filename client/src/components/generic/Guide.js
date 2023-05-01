@@ -1,13 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useSpotifyPlayer } from 'react-spotify-web-playback-sdk';
 import { UserInfoContext } from '../../contexts/UserInfo';
 
 export default function Guide() {
   const { userInfo, updateUserInfo } = useContext(UserInfoContext);
   const [showGuide, setShowGuide] = useState(true);
 
+  const player = useSpotifyPlayer();
+
   const handleCompleteGuide = () => {
     updateUserInfo({ hasCompletedGuide: true });
     setShowGuide(true);
+    player.connect();
+    console.log('Connected to player!');
   };
 
   if (!showGuide || userInfo.hasCompletedGuide) {
