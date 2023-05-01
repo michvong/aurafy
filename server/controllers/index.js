@@ -42,16 +42,6 @@ const getPlaylist = async (req, res, next) => {
   }
 };
 
-const transferPlayback = async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    await spotifyApi.transferPlayback(id);
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-};
-
 const playTrack = async (req, res, next) => {
   const { track_uri, id } = req.params;
   try {
@@ -77,7 +67,6 @@ module.exports = {
   getUserInfo,
   getPlaylists,
   getPlaylist,
-  transferPlayback,
   playTrack,
   playContext,
 };

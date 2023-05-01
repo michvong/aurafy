@@ -43,17 +43,6 @@ const getPlaylist = async (playlistId) => {
   }
 };
 
-const transferPlayback = async (deviceId) => {
-  const accessToken = await redisClient.get('accessToken');
-  spotifyApi.setAccessToken(accessToken);
-  try {
-    await spotifyApi.transferMyPlayback({ device_ids: [deviceId], play: true });
-    console.log(`Transferring playback on device ${deviceId}`);
-  } catch (error) {
-    throw new Error(`Failed to transfer playback: ${error.message}`);
-  }
-};
-
 const playTrack = async (trackUri, deviceId) => {
   const accessToken = await redisClient.get('accessToken');
   spotifyApi.setAccessToken(accessToken);
@@ -80,7 +69,6 @@ module.exports = {
   getUserInfo,
   getPlaylists,
   getPlaylist,
-  transferPlayback,
   playTrack,
   playContext,
 };
