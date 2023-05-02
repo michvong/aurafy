@@ -76,6 +76,17 @@ const setShuffleState = async (state) => {
   }
 };
 
+const setRepeatMode = async (state) => {
+  const accessToken = await redisClient.get('accessToken');
+  spotifyApi.setAccessToken(accessToken);
+  try {
+    await spotifyApi.setRepeat(state);
+    console.log(`Setting repeat mode with state: ${state}`);
+  } catch (error) {
+    throw new Error(`Failed to change repeat mode: ${error.message}`);
+  }
+};
+
 module.exports = {
   getUserInfo,
   getPlaylists,
@@ -83,4 +94,5 @@ module.exports = {
   playTrack,
   playContext,
   setShuffleState,
+  setRepeatMode,
 };

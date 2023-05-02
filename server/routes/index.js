@@ -13,5 +13,6 @@ router.get('/playlist/:id', controller.getPlaylist);
 router.get('/playlist/:track_uri/:id', controller.playTrack);
 router.get('/playlist/:context_uri/:id', controller.playContext);
 router.get('/shuffle/:state', controller.setShuffleState);
+router.get('/repeat/:state', controller.setRepeatMode);
 
 module.exports = router;

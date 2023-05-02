@@ -73,6 +73,17 @@ const setShuffleState = async (req, res, next) => {
   }
 };
 
+const setRepeatMode = async (req, res, next) => {
+  const { state } = req.params;
+  console.log(state);
+  try {
+    await spotifyApi.setRepeatMode(state);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 module.exports = {
   getAccessToken,
   getUserInfo,
@@ -81,4 +92,5 @@ module.exports = {
   playTrack,
   playContext,
   setShuffleState,
+  setRepeatMode,
 };
