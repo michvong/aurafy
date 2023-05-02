@@ -12,8 +12,7 @@ export default function Controller() {
   const [repeatState, setRepeatState] = useState('off');
 
   const player = useSpotifyPlayer();
-  // const playbackState = usePlaybackState({ interval: true });
-  const playbackState = usePlaybackState({ shuffle: true });
+  const playbackState = usePlaybackState({ interval: true });
 
   useEffect(() => {
     const formattedEndDuration = formatDurationMS(
@@ -65,10 +64,13 @@ export default function Controller() {
   const handleRepeatState = () => {
     if (repeatState === 'off') {
       setRepeatState('context');
+      api.setRepeatMode('context');
     } else if (repeatState === 'context') {
       setRepeatState('track');
+      api.setRepeatMode('track');
     } else {
       setRepeatState('off');
+      api.setRepeatMode('off');
     }
   };
 
@@ -80,8 +82,8 @@ export default function Controller() {
             {!shuffleState ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#ffffff"
@@ -94,8 +96,8 @@ export default function Controller() {
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#ffffff"
@@ -186,8 +188,8 @@ export default function Controller() {
             {repeatState === 'off' && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#ffffff"
@@ -203,8 +205,8 @@ export default function Controller() {
             {repeatState === 'context' && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#ffffff"
@@ -221,8 +223,8 @@ export default function Controller() {
             {repeatState === 'track' && (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="#ffffff"

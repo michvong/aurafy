@@ -41,8 +41,11 @@ const playContext = async (contextUri, deviceId) => {
 };
 
 const setShuffleState = async (state) => {
-  console.log(state);
   await axios.get(`http://localhost:8000/shuffle/${state}`);
+};
+
+const setRepeatMode = async (state) => {
+  await axios.get(`http://localhost:8000/repeat/${state}`);
 };
 
 export default {
@@ -55,4 +58,5 @@ export default {
   playTrack,
   playContext,
   setShuffleState,
+  setRepeatMode,
 };
