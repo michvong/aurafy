@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { formatDurationMS } from '../../services/formatDurationMS';
 import { useSpotifyPlayer, usePlaybackState } from 'react-spotify-web-playback-sdk';
+import api from '../../services/api';
 
 export default function Controller() {
   const [currentDuration, setCurrentDuration] = useState('0:00');
@@ -11,7 +12,8 @@ export default function Controller() {
   const [repeatState, setRepeatState] = useState(0);
 
   const player = useSpotifyPlayer();
-  const playbackState = usePlaybackState({ interval: true });
+  // const playbackState = usePlaybackState({ interval: true });
+  const playbackState = usePlaybackState({ shuffle: true });
 
   useEffect(() => {
     const formattedEndDuration = formatDurationMS(
@@ -26,6 +28,7 @@ export default function Controller() {
     const endDurationMS = playbackState?.track_window?.current_track?.duration_ms;
 
     setCurrPositionOnBar((currentDurationMS / endDurationMS) * 100);
+    console.log(playbackState);
   }, [playbackState]);
 
   useEffect(() => {
@@ -49,9 +52,14 @@ export default function Controller() {
     }
   };
 
-  const handleShuffleState = () => {
-    // player.toggleShuffle(!playbackState.shuffle);
-    // setShuffleState(!playbackState.shuffle);
+  const handleShuffleState = async () => {
+    if (shuffleState) {
+      setShuffleState(false);
+      await api.setShuffleState(false);
+    } else {
+      setShuffleState(true);
+      await api.setShuffleState(true);
+    }
   };
 
   const handleRepeatState = () => {
@@ -74,19 +82,36 @@ export default function Controller() {
       <div class="flex flex-col items-center">
         <div class="flex items-center -mb-3">
           <button onClick={handleShuffleState} class="p-6 hover:scale-125 focus:scale-95">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#ffffff"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M16 3h5v5M4 20L20.2 3.8M21 16v5h-5M15 15l5.1 5.1M4 4l5 5" />
-            </svg>
+            {!shuffleState ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M16 3h5v5M4 20L20.2 3.8M21 16v5h-5M15 15l5.1 5.1M4 4l5 5" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="stroke-green-500"
+              >
+                <path d="M16 3h5v5M4 20L20.2 3.8M21 16v5h-5M15 15l5.1 5.1M4 4l5 5" />
+              </svg>
+            )}
           </button>
 
           <button onClick={() => player.previousTrack()} class="p-3 hover:scale-110 focus:scale-95">

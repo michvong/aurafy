@@ -65,10 +65,22 @@ const playContext = async (contextUri, deviceId) => {
   }
 };
 
+const setShuffleState = async (state) => {
+  const accessToken = await redisClient.get('accessToken');
+  spotifyApi.setAccessToken(accessToken);
+  try {
+    await spotifyApi.setShuffle(state);
+    console.log(`Setting shuffle with state: ${state}`);
+  } catch (error) {
+    throw new Error(`Failed to change shuffle state: ${error.message}`);
+  }
+};
+
 module.exports = {
   getUserInfo,
   getPlaylists,
   getPlaylist,
   playTrack,
   playContext,
+  setShuffleState,
 };

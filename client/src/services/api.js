@@ -32,16 +32,17 @@ const getPlaylist = async (playlistId) => {
   return response;
 };
 
-const transferPlayback = async (deviceId) => {
-  await axios.get(`http://localhost:8000/${deviceId}`);
-};
-
 const playTrack = async (trackUri, deviceId) => {
-  await axios.get(`http://localhost:8000/${trackUri}/${deviceId}`);
+  await axios.get(`http://localhost:8000/playlist/${trackUri}/${deviceId}`);
 };
 
 const playContext = async (contextUri, deviceId) => {
   await axios.get(`http://localhost:8000/playlist/${contextUri}/${deviceId}`);
+};
+
+const setShuffleState = async (state) => {
+  console.log(state);
+  await axios.get(`http://localhost:8000/shuffle/${state}`);
 };
 
 export default {
@@ -51,7 +52,7 @@ export default {
   getUserInfo,
   getUserPlaylists,
   getPlaylist,
-  transferPlayback,
   playTrack,
   playContext,
+  setShuffleState,
 };
