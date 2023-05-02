@@ -9,7 +9,7 @@ export default function Controller() {
   const [currPositionOnBar, setCurrPositionOnBar] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [shuffleState, setShuffleState] = useState(false);
-  const [repeatState, setRepeatState] = useState(0);
+  const [repeatState, setRepeatState] = useState('off');
 
   const player = useSpotifyPlayer();
   // const playbackState = usePlaybackState({ interval: true });
@@ -63,18 +63,13 @@ export default function Controller() {
   };
 
   const handleRepeatState = () => {
-    // if (playbackState.repeat_mode === 0) {
-    //   // 0 means repeat off
-    //   player.setRepeat(2); // setRepeat with 2 means repeat the current track
-    //   setRepeatState(2);
-    // } else if (playbackState.repeat_mode === 2) {
-    //   // 2 means repeat the current track
-    //   player.setRepeat(1); // setRepeat with 1 means repeat the context
-    //   setRepeatState(1);
-    // } else {
-    //   player.setRepeat(0); // setRepeat with 0 means repeat off
-    //   setRepeatState(0);
-    // }
+    if (repeatState === 'off') {
+      setRepeatState('context');
+    } else if (repeatState === 'context') {
+      setRepeatState('track');
+    } else {
+      setRepeatState('off');
+    }
   };
 
   return (
@@ -188,21 +183,67 @@ export default function Controller() {
           </button>
 
           <button onClick={handleRepeatState} class="p-6 hover:scale-125 focus:scale-95">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#ffffff"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M17 2.1l4 4-4 4" />
-              <path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4" />
-              <path d="M21 11.8v2a4 4 0 0 1-4 4H4.2" />
-            </svg>
+            {repeatState === 'off' && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M17 2.1l4 4-4 4" />
+                <path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4" />
+                <path d="M21 11.8v2a4 4 0 0 1-4 4H4.2" />
+              </svg>
+            )}
+            {repeatState === 'context' && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="stroke-green-500"
+              >
+                <path d="M17 2.1l4 4-4 4" />
+                <path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4" />
+                <path d="M21 11.8v2a4 4 0 0 1-4 4H4.2" />
+              </svg>
+            )}
+            {repeatState === 'track' && (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="1"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="stroke-green-500"
+              >
+                <path d="M17 2.1l4 4-4 4" />
+                <path d="M3 12.2v-2a4 4 0 0 1 4-4h12.8M7 21.9l-4-4 4-4" />
+                <path d="M21 11.8v2a4 4 0 0 1-4 4H4.2" />
+                <text
+                  x="50%"
+                  y="62%"
+                  text-anchor="middle"
+                  class="fill-green-500 text-[8px] font-thin"
+                >
+                  1
+                </text>
+              </svg>
+            )}
           </button>
         </div>
 
