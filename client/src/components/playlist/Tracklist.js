@@ -14,7 +14,7 @@ export default function Tracklist({ playlistId }) {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        // console.log(response.data);
+        console.log(response.data);
         setPlaylist(response.data);
       } catch (err) {
         // console.log(err);
@@ -30,10 +30,9 @@ export default function Tracklist({ playlistId }) {
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
-  const handlePlayTrack = async (contextUri, deviceId) => {
-    player.resume();
+  const handlePlayTrack = async (contextUri, trackUri, deviceId) => {
     try {
-      await api.playTrack(contextUri, deviceId);
+      await api.playTrack(contextUri, trackUri, deviceId);
     } catch (err) {
       console.log(err);
     }
@@ -86,7 +85,9 @@ export default function Tracklist({ playlistId }) {
                   <div class="relative text-center">
                     <span class="pr-1 group-hover:text-transparent">{trackNumberCounter++}</span>
                     <button
-                      onClick={() => handlePlayTrack(item.track.uri, playerDevice.device_id)}
+                      onClick={() =>
+                        handlePlayTrack(playlist.uri, item.track.uri, playerDevice.device_id)
+                      }
                       class="flex justify-center absolute left-0 right-0 bottom-0 opacity-0 group-hover:opacity-100"
                     >
                       <svg

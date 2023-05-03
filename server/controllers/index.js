@@ -43,9 +43,9 @@ const getPlaylist = async (req, res, next) => {
 };
 
 const playTrack = async (req, res, next) => {
-  const { track_uri, id } = req.params;
+  const { context_uri, track_uri, id } = req.params;
   try {
-    await spotifyApi.playTrack(track_uri, id);
+    await spotifyApi.playTrack(context_uri, track_uri, id);
   } catch (error) {
     console.log(error);
     next(error);

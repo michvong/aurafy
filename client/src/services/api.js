@@ -32,8 +32,8 @@ const getPlaylist = async (playlistId) => {
   return response;
 };
 
-const playTrack = async (trackUri, deviceId) => {
-  await axios.get(`http://localhost:8000/playlist/${trackUri}/${deviceId}`);
+const playTrack = async (contextUri, trackUri, deviceId) => {
+  await axios.get(`http://localhost:8000/playlist/${contextUri}/${trackUri}/${deviceId}`);
 };
 
 const playContext = async (contextUri, deviceId) => {

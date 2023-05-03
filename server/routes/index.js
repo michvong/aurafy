@@ -10,7 +10,7 @@ router.get('/access-token', controller.getAccessToken);
 router.get('/user', controller.getUserInfo);
 router.get('/playlists', controller.getPlaylists);
 router.get('/playlist/:id', controller.getPlaylist);
-router.get('/playlist/:track_uri/:id', controller.playTrack);
+router.get('/playlist/:context_uri/:track_uri/:id', controller.playTrack);
 router.get('/playlist/:context_uri/:id', controller.playContext);
 router.get('/shuffle/:state', controller.setShuffleState);
 router.get('/repeat/:state', controller.setRepeatMode);

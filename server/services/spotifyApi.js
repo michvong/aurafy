@@ -43,11 +43,15 @@ const getPlaylist = async (playlistId) => {
   }
 };
 
-const playTrack = async (trackUri, deviceId) => {
+const playTrack = async (contextUri, trackUri, deviceId) => {
   const accessToken = await redisClient.get('accessToken');
   spotifyApi.setAccessToken(accessToken);
   try {
-    await spotifyApi.play({ uris: [trackUri], device_id: deviceId });
+    await spotifyApi.play({
+      context_uri: contextUri,
+      offset: { uri: trackUri },
+      device_id: deviceId,
+    });
     console.log(`Playing track ${trackUri} on device ${deviceId}`);
   } catch (error) {
     throw new Error(`Failed to play context: ${error.message}`);
