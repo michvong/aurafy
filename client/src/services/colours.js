@@ -80,7 +80,7 @@ const getPalette = (imageUrl) => {
         const hsl = rgbToHsl(r, g, b);
 
         // Check if lightness value is between 0.2 and 0.8
-        if (hsl[2] >= 0.5 && hsl[2] < 0.85) {
+        if (hsl[2] >= 0.5 && hsl[2] < 0.8) {
           const hex = rgbToHex(r, g, b);
           colorCounts[hex] = colorCounts[hex] ? colorCounts[hex] + 1 : 1;
         }

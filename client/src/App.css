@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.bg-gradient-to-b {
+  background-image: linear-gradient(
+    to bottom,
+    var(--playlist-color, #78716c) 10%,
+    #44403c 50%,
+    #292524
+  );
+}

@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Music from '../../assets/music.svg';
 import api from '../../services/api';
-import { useSpotifyPlayer, usePlayerDevice } from 'react-spotify-web-playback-sdk';
+import { usePlayerDevice } from 'react-spotify-web-playback-sdk';
 
 export default function Tracklist({ playlistId }) {
   let trackNumberCounter = 1;
   const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
 
-  const player = useSpotifyPlayer();
   const playerDevice = usePlayerDevice();
 
   useEffect(() => {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        console.log(response.data);
+        // console.log(response.data);
         setPlaylist(response.data);
       } catch (err) {
         // console.log(err);

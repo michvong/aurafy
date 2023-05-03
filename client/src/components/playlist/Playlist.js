@@ -25,7 +25,7 @@ export default function Playlist({ playlistId }) {
         colours
           .getDominantColour(response.data.images[0]?.url)
           .then((dominantColour) => {
-            console.log(dominantColour);
+            // console.log(dominantColour);
             setPlaylistColour(dominantColour);
             setIsLoading(false);
           })
@@ -40,7 +40,6 @@ export default function Playlist({ playlistId }) {
     };
 
     setIsLoading(true);
-    setPlaylistColour('');
     fetchPlaylist();
   }, [playlistId]);
 
@@ -70,11 +69,8 @@ export default function Playlist({ playlistId }) {
   return (
     <div>
       <div
-        className={`max-w-full p-10 ${
-          playlistColour
-            ? `bg-gradient-to-b from-[${playlistColour}] from-10% via-stone-800 via-30% to-stone-800`
-            : 'bg-gradient-to-b from-stone-500 from-10% via-stone-800 via-30% to-stone-800'
-        } shadow`}
+        className={`max-w-full p-10 bg-gradient-to-b from-stone-500 from-10% via-stone-800 via-30% to-stone-800 shadow`}
+        style={{ '--playlist-color': playlistColour }}
       >
         <div class="flex items-center mb-6">
           {playlist?.images[0] ? (
@@ -89,18 +85,20 @@ export default function Playlist({ playlistId }) {
             </div>
           )}
           <div class="flex flex-col space-y-8">
-            <span class="text-7xl font-extrabold tracking-tight text-white">{playlist?.name}</span>
+            <span class="text-7xl font-extrabold tracking-tight text-white drop-shadow">
+              {playlist?.name}
+            </span>
             <div class="flex flex-col space-y-1">
-              <span class="font-normal text-stone-200">{playlist?.description}</span>
-              <span class="text-sm font-semibold tracking-tight text-white">
+              <span class="font-normal text-stone-200 drop-shadow">{playlist?.description}</span>
+              <span class="text-sm font-semibold tracking-tight text-white drop-shadow">
                 By {playlist?.owner.display_name} •
-                <span class="font-medium"> {playlist?.tracks.total} songs, </span>
-                <span class="text-stone-200 font-normal">{totalDuration}</span>
+                <span class="font-medium drop-shadow"> {playlist?.tracks.total} songs, </span>
+                <span class="text-stone-200 font-normal drop-shadow">{totalDuration}</span>
               </span>
             </div>
           </div>
         </div>
-        <div class="min-h-screen bg-gradient-to-b from-stone-800/50 from-20% via-stone-800/50 via-30% to-stone-800">
+        <div class="min-h-screen bg-stone-800/75 mb-10">
           <Tracklist playlistId={playlistId} />
         </div>
       </div>
