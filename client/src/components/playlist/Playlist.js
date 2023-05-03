@@ -98,7 +98,7 @@ export default function Playlist({ playlistId }) {
             </div>
           </div>
         </div>
-        <div class="min-h-screen bg-stone-800/75 mb-10">
+        <div class="min-h-screen mb-10">
           <Tracklist playlistId={playlistId} />
         </div>
       </div>

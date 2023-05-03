@@ -3,7 +3,7 @@ import React from 'react';
 export default function Alert() {
   return (
     <div
-      class="flex p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 animate-fade-out"
+      class="flex p-4 mb-4 text-sm text-violet-800 rounded-lg bg-violet-300 animate-fade-out"
       role="alert"
     >
       <svg

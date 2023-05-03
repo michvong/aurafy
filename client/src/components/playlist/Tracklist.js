@@ -16,7 +16,7 @@ export default function Tracklist({ playlistId }) {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        console.log(response.data);
+        // console.log(response.data);
         setPlaylist(response.data);
       } catch (err) {
         // console.log(err);
@@ -56,13 +56,13 @@ export default function Tracklist({ playlistId }) {
   return (
     <div>
       {isLocalTrack && (
-        <div class="animate-fade absolute bottom-0 right-0 mx-2 mb-20">
+        <div class="animate-fade absolute bottom-0 right-0 mx-2 mb-20 z-50">
           <Alert />
         </div>
       )}
 
       <div class="relative overflow-x-auto">
-        <table class="h-full w-full table-auto text-sm truncate text-white">
+        <table class="h-full w-full bg-stone-800/75 table-auto text-sm truncate text-white">
           <thead class="text-xs uppercase bg-transparent text-white">
             <tr>
               <th scope="col" class="px-4 py-4 text-center">
