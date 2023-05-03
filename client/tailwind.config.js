@@ -1,13 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  content: ['./src/**/*.{html,js,jsx,ts,tsx}', './node_modules/tw-elements/dist/js/**/*.js'],
+  content: [
+    './src/**/*.{html,js,jsx,ts,tsx}',
+    './node_modules/tw-elements/dist/js/**/*.js',
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
+  ],
   theme: {
     extend: {
       animation: {
         'gradient-x': 'gradient-x 10s ease infinite',
         'gradient-y': 'gradient-y 10s ease infinite',
         'gradient-xy': 'gradient-xy 10s ease infinite',
+        'fade-out': 'fadeOut 1s ease-out 3s forwards',
       },
       keyframes: {
         'gradient-y': {
@@ -40,10 +45,14 @@ module.exports = {
             'background-position': 'right center',
           },
         },
+        fadeOut: {
+          '0%': { opacity: 1 },
+          '100%': { opacity: 0 },
+        },
       },
     },
   },
-  plugins: [require('tailwindcss-animated')],
+  plugins: [require('tailwindcss-animated'), require('flowbite/plugin')],
   experimental: {
     optimizeUniversalDefaults: true,
   },

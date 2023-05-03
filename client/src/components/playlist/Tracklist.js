@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { usePlayerDevice } from 'react-spotify-web-playback-sdk';
 import Music from '../../assets/music.svg';
 import api from '../../services/api';
-import { usePlayerDevice } from 'react-spotify-web-playback-sdk';
+import Alert from './Alert';
+import { formatDurationMS } from '../../services/formatDurationMS';
 
 export default function Tracklist({ playlistId }) {
   let trackNumberCounter = 1;
   const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
+  const [isLocalTrack, setIsLocalTrack] = useState(false);
 
   const playerDevice = usePlayerDevice();
 
@@ -13,7 +16,7 @@ export default function Tracklist({ playlistId }) {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        // console.log(response.data);
+        console.log(response.data);
         setPlaylist(response.data);
       } catch (err) {
         // console.log(err);
@@ -23,13 +26,22 @@ export default function Tracklist({ playlistId }) {
     fetchPlaylist();
   }, [playlistId]);
 
-  const msToMinutesAndSeconds = (ms) => {
-    const minutes = Math.floor(ms / 60000);
-    const seconds = ((ms % 60000) / 1000).toFixed(0);
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  };
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setIsLocalTrack(false);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [isLocalTrack]);
 
   const handlePlayTrack = async (contextUri, trackUri, deviceId) => {
+    const isLocalTrackUri = /^spotify:local:.*$/.test(trackUri);
+    if (isLocalTrackUri) {
+      setIsLocalTrack(true);
+      console.log(`Cannot play local track URI: ${trackUri}`);
+      return;
+    }
+
     try {
       await api.playTrack(contextUri, trackUri, deviceId);
     } catch (err) {
@@ -43,6 +55,12 @@ export default function Tracklist({ playlistId }) {
 
   return (
     <div>
+      {isLocalTrack && (
+        <div class="animate-fade absolute bottom-0 right-0 mx-2 mb-20">
+          <Alert />
+        </div>
+      )}
+
       <div class="relative overflow-x-auto">
         <table class="h-full w-full table-auto text-sm truncate text-white">
           <thead class="text-xs uppercase bg-transparent text-white">
@@ -125,9 +143,7 @@ export default function Tracklist({ playlistId }) {
                   </div>
                 </td>
                 <td class="px-4 py-2 text-left">_ _ _ _ _</td>
-                <td class="px-4 py-2 text-right">
-                  {msToMinutesAndSeconds(item.track.duration_ms)}
-                </td>
+                <td class="px-4 py-2 text-right">{formatDurationMS(item.track.duration_ms)}</td>
               </tr>
             ))}
           </tbody>
