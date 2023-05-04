@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Music from '../../assets/music.svg';
-import { usePlaybackState } from 'react-spotify-web-playback-sdk';
+import api from '../../services/api';
+import { usePlaybackState, usePlayerDevice } from 'react-spotify-web-playback-sdk';
 
 export default function SongDetails() {
   const [currentImage, setCurrentImage] = useState();
@@ -8,15 +9,29 @@ export default function SongDetails() {
   const [currentArtists, setCurrentArtists] = useState([]);
 
   const playbackState = usePlaybackState();
+  const device = usePlayerDevice();
 
   useEffect(() => {
-    if (playbackState !== null) {
-      // console.log(playbackState);
-      setCurrentImage(playbackState.track_window.current_track.album.images[0].url);
-      setCurrentSong(playbackState.track_window.current_track.name);
-      setCurrentArtists(playbackState.track_window.current_track.artists);
-    }
-  }, [playbackState]);
+    const fetchCurrentPlaybackState = async () => {
+      try {
+        const response = await api.getCurrentPlaybackState();
+        // console.log(response);
+        if (playbackState && response.data.device.id === device?.device_id) {
+          setCurrentImage(playbackState.track_window.current_track.album.images[0].url);
+          setCurrentSong(playbackState.track_window.current_track.name);
+          setCurrentArtists(playbackState.track_window.current_track.artists);
+        } else {
+          setCurrentImage('');
+          setCurrentSong('Song Title');
+          setCurrentArtists([]);
+        }
+      } catch (err) {
+        // console.log(err);
+      }
+    };
+
+    fetchCurrentPlaybackState();
+  }, [device?.device_id, playbackState]);
 
   return (
     <>

@@ -84,7 +84,7 @@ export default function Volume() {
         <button onClick={handleVolumeClick}>
           <VolumeIcon volume={currentVolume} />
         </button>
-        <div class="mx-3 w-28 h-6 relative">
+        <div class="mx-2 w-28 h-6 relative">
           <input
             type="range"
             min="0"
