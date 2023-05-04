@@ -1,12 +1,32 @@
-import React from 'react';
-import { usePlaybackState } from 'react-spotify-web-playback-sdk';
+import React, { useState, useEffect } from 'react';
+import { usePlaybackState, usePlayerDevice } from 'react-spotify-web-playback-sdk';
+import api from '../../services/api';
 import SongDetails from './SongDetails';
 import Controller from './Controller';
 import Device from './Device';
 import Volume from './Volume';
 
 export default function Player() {
+  const [isCurrentDevice, setIsCurrentDevice] = useState(false);
+
   const playbackState = usePlaybackState({ interval: true });
+  const device = usePlayerDevice();
+
+  useEffect(() => {
+    const fetchCurrentDevice = async () => {
+      try {
+        const response = await api.getCurrentPlaybackState();
+        if (playbackState && response.data.device.id === device?.device_id) {
+          setIsCurrentDevice(true);
+        } else {
+          setIsCurrentDevice(false);
+        }
+      } catch (err) {
+        // console.log(err);
+      }
+    };
+    fetchCurrentDevice();
+  }, [playbackState, device]);
 
   return (
     <div class="relative">
@@ -19,7 +39,7 @@ export default function Player() {
         </div>
       </div>
 
-      {playbackState === null ? <div class="absolute inset-0 bg-stone-900 opacity-70"></div> : null}
+      {!isCurrentDevice ? <div class="absolute inset-0 bg-stone-900 opacity-70"></div> : null}
     </div>
   );
 }

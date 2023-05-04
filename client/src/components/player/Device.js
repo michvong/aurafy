@@ -5,6 +5,7 @@ import api from '../../services/api';
 
 export default function Device() {
   const [isCurrentDevice, setIsCurrentDevice] = useState(false);
+
   const device = usePlayerDevice();
   const playbackState = usePlaybackState();
 
@@ -23,10 +24,6 @@ export default function Device() {
     };
     fetchCurrentDevice();
   }, [playbackState, device]);
-
-  const handleDeviceClick = async () => {
-    setIsCurrentDevice(true);
-  };
 
   return (
     <div>
@@ -56,29 +53,23 @@ export default function Device() {
           </button>
         </Tooltip>
       ) : (
-        <Tooltip
-          className="bg-stone-900 text-xs"
-          content="Click to switch to aurafy device"
-          animation="duration-300"
-        >
-          <button class="flex items-center mx-2" onClick={handleDeviceClick}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#ffffff"
-              stroke-width="1"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-              <circle cx="12" cy="14" r="4"></circle>
-              <line x1="12" y1="6" x2="12.01" y2="6"></line>
-            </svg>
-          </button>
-        </Tooltip>
+        <div class="flex items-center mx-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#ffffff"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+            <circle cx="12" cy="14" r="4"></circle>
+            <line x1="12" y1="6" x2="12.01" y2="6"></line>
+          </svg>
+        </div>
       )}
     </div>
   );
