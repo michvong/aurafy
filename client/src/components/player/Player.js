@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { usePlaybackState } from 'react-spotify-web-playback-sdk';
 import SongDetails from './SongDetails';
 import Controller from './Controller';
