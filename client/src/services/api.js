@@ -32,6 +32,16 @@ const getPlaylist = async (playlistId) => {
   return response;
 };
 
+const getCurrentPlayingTrack = async () => {
+  const response = await axios.get('http://localhost:8000/current_track');
+  return response;
+};
+
+const getCurrentPlaybackState = async () => {
+  const response = await axios.get('http://localhost:8000/current_playback_state');
+  return response;
+};
+
 const playTrack = async (contextUri, trackUri, deviceId) => {
   await axios.get(`http://localhost:8000/playlist/${contextUri}/${trackUri}/${deviceId}`);
 };
@@ -55,6 +65,8 @@ export default {
   getUserInfo,
   getUserPlaylists,
   getPlaylist,
+  getCurrentPlayingTrack,
+  getCurrentPlaybackState,
   playTrack,
   playContext,
   setShuffleState,

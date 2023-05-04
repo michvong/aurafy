@@ -42,6 +42,26 @@ const getPlaylist = async (req, res, next) => {
   }
 };
 
+const getCurrentPlayingTrack = async (req, res, next) => {
+  try {
+    const track = await spotifyApi.getCurrentPlayingTrack();
+    res.json(track);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+const getCurrentPlaybackState = async (req, res, next) => {
+  try {
+    const state = await spotifyApi.getCurrentPlaybackState();
+    res.json(state);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 const playTrack = async (req, res, next) => {
   const { context_uri, track_uri, id } = req.params;
   try {
@@ -89,6 +109,8 @@ module.exports = {
   getUserInfo,
   getPlaylists,
   getPlaylist,
+  getCurrentPlayingTrack,
+  getCurrentPlaybackState,
   playTrack,
   playContext,
   setShuffleState,

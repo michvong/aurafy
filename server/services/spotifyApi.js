@@ -43,6 +43,28 @@ const getPlaylist = async (playlistId) => {
   }
 };
 
+const getCurrentPlayingTrack = async () => {
+  const accessToken = await redisClient.get('accessToken');
+  spotifyApi.setAccessToken(accessToken);
+  try {
+    const { body: track } = await spotifyApi.getMyCurrentPlayingTrack();
+    return track;
+  } catch (error) {
+    throw new Error(`Failed to get currently playing track: ${error.message}`);
+  }
+};
+
+const getCurrentPlaybackState = async () => {
+  const accessToken = await redisClient.get('accessToken');
+  spotifyApi.setAccessToken(accessToken);
+  try {
+    const { body: state } = await spotifyApi.getMyCurrentPlaybackState();
+    return state;
+  } catch (error) {
+    throw new Error(`Failed to get current playback state: ${error.message}`);
+  }
+};
+
 const playTrack = async (contextUri, trackUri, deviceId) => {
   const accessToken = await redisClient.get('accessToken');
   spotifyApi.setAccessToken(accessToken);
@@ -95,6 +117,8 @@ module.exports = {
   getUserInfo,
   getPlaylists,
   getPlaylist,
+  getCurrentPlayingTrack,
+  getCurrentPlaybackState,
   playTrack,
   playContext,
   setShuffleState,
