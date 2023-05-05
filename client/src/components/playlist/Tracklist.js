@@ -18,14 +18,26 @@ export default function Tracklist({ playlistId }) {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        console.log(response.data);
+        // console.log(response.data);
         setPlaylist(response.data);
+
+        const audioFeatures = await api.getAudioFeaturesForTrack(
+          response.data.tracks.items[0].track.id
+        );
+        // console.log(audioFeatures);
+        generateColourPalette(
+          audioFeatures.data.danceability,
+          audioFeatures.data.energy,
+          audioFeatures.data.valence,
+          audioFeatures.data.tempo,
+          audioFeatures.data.acousticness
+        );
 
         const palettes = [];
         for (const item of response.data.tracks.items) {
           const audioFeatures = await api.getAudioFeaturesForTrack(item.track.id);
           // console.log(audioFeatures);
-          const palette = await generateColourPalette(
+          const palette = generateColourPalette(
             audioFeatures.data.danceability,
             audioFeatures.data.energy,
             audioFeatures.data.valence,
