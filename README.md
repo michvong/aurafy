@@ -18,6 +18,7 @@ A Spotify Player that generates a colour palette and a music visualizer for each
 - npm install -D tailwindcss-animate
 - npm install -D tailwindcss postcss autoprefixer
 - npm install flowbite flowbite-react
+- npm install chroma-js
   <!-- - npm install --save-dev http-proxy-middleware -->
 
 - npm install axios
