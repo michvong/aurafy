@@ -4,10 +4,12 @@ import Music from '../../assets/music.svg';
 import api from '../../services/api';
 import Alert from './Alert';
 import { formatDurationMS } from '../../services/formatDurationMS';
+import generateColourPalette from '../../services/generateColourPalette';
 
 export default function Tracklist({ playlistId }) {
   let trackNumberCounter = 1;
   const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
+  const [playlistPalettes, setPlaylistPalettes] = useState([]);
   const [isLocalTrack, setIsLocalTrack] = useState(false);
 
   const playerDevice = usePlayerDevice();
@@ -16,8 +18,25 @@ export default function Tracklist({ playlistId }) {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        // console.log(response.data);
+        console.log(response.data);
         setPlaylist(response.data);
+
+        const palettes = [];
+        for (const item of response.data.tracks.items) {
+          const audioFeatures = await api.getAudioFeaturesForTrack(item.track.id);
+          // console.log(audioFeatures);
+          const palette = await generateColourPalette(
+            audioFeatures.data.danceability,
+            audioFeatures.data.energy,
+            audioFeatures.data.valence,
+            audioFeatures.data.tempo,
+            audioFeatures.data.acousticness
+          );
+          palettes.push(palette);
+        }
+
+        setPlaylistPalettes(palettes);
+        // console.log(palettes);
       } catch (err) {
         // console.log(err);
       }

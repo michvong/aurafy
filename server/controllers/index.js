@@ -62,6 +62,17 @@ const getCurrentPlaybackState = async (req, res, next) => {
   }
 };
 
+const getAudioFeaturesForTrack = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const features = await spotifyApi.getAudioFeaturesForTrack(id);
+    res.json(features);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
 const playTrack = async (req, res, next) => {
   const { context_uri, track_uri, id } = req.params;
   try {
@@ -111,6 +122,7 @@ module.exports = {
   getPlaylist,
   getCurrentPlayingTrack,
   getCurrentPlaybackState,
+  getAudioFeaturesForTrack,
   playTrack,
   playContext,
   setShuffleState,

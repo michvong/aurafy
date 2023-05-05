@@ -1,6 +1,7 @@
 import chroma from 'chroma-js';
 
 const generateColourPalette = (danceability, energy, valence, tempo, acousticness) => {
+  // console.log('Input values:', danceability, energy, valence, tempo, acousticness);
   const baseColour = '#4285f4';
 
   const colourPalette = chroma

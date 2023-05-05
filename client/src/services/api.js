@@ -42,6 +42,11 @@ const getCurrentPlaybackState = async () => {
   return response;
 };
 
+const getAudioFeaturesForTrack = async (trackId) => {
+  const response = await axios.get(`http://localhost:8000/audio_features/${trackId}`);
+  return response;
+};
+
 const playTrack = async (contextUri, trackUri, deviceId) => {
   await axios.get(`http://localhost:8000/playlist/${contextUri}/${trackUri}/${deviceId}`);
 };
@@ -67,6 +72,7 @@ export default {
   getPlaylist,
   getCurrentPlayingTrack,
   getCurrentPlaybackState,
+  getAudioFeaturesForTrack,
   playTrack,
   playContext,
   setShuffleState,

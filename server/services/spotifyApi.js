@@ -65,6 +65,17 @@ const getCurrentPlaybackState = async () => {
   }
 };
 
+const getAudioFeaturesForTrack = async (id) => {
+  const accessToken = await redisClient.get('accessToken');
+  spotifyApi.setAccessToken(accessToken);
+  try {
+    const { body: features } = await spotifyApi.getAudioFeaturesForTrack(id);
+    return features;
+  } catch (error) {
+    throw new Error(`Failed to get audio features: ${error.message}`);
+  }
+};
+
 const playTrack = async (contextUri, trackUri, deviceId) => {
   const accessToken = await redisClient.get('accessToken');
   spotifyApi.setAccessToken(accessToken);
@@ -119,6 +130,7 @@ module.exports = {
   getPlaylist,
   getCurrentPlayingTrack,
   getCurrentPlaybackState,
+  getAudioFeaturesForTrack,
   playTrack,
   playContext,
   setShuffleState,
