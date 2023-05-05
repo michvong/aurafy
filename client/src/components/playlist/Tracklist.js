@@ -48,7 +48,7 @@ export default function Tracklist({ playlistId }) {
         }
 
         setPlaylistPalettes(palettes);
-        // console.log(palettes);
+        console.log(palettes);
       } catch (err) {
         // console.log(err);
       }
@@ -124,9 +124,9 @@ export default function Tracklist({ playlistId }) {
             </tr>
           </thead>
           <tbody>
-            {playlist.tracks.items.map((item, index) => (
+            {playlist.tracks.items.map((item, trackIdx) => (
               <tr
-                key={item.track.id || index}
+                key={item.track.id || trackIdx}
                 class="group bg-transparent transition ease-in-out delay-120 hover:bg-stone-700/50 duration-150"
               >
                 <td class="px-4 py-2">
@@ -173,7 +173,23 @@ export default function Tracklist({ playlistId }) {
                     </div>
                   </div>
                 </td>
-                <td class="px-4 py-2 text-left">_ _ _ _ _</td>
+                <td class="px-4 py-2">
+                  <div class="flex flex-row justify-start">
+                    {playlistPalettes[trackIdx] ? (
+                      <div className="flex flex-row justify-start">
+                        {playlistPalettes[trackIdx].map((colours, colourIdx) => (
+                          <div
+                            key={colourIdx}
+                            className="w-2 h-2 mr-1"
+                            style={{ backgroundColor: colours }}
+                          ></div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div>_ _ _ _ _</div>
+                    )}
+                  </div>
+                </td>
                 <td class="px-4 py-2 text-right">{formatDurationMS(item.track.duration_ms)}</td>
               </tr>
             ))}
