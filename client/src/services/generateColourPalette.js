@@ -1,20 +1,25 @@
 import chroma from 'chroma-js';
 
 const getDanceabilityColour = (danceability, valence, acousticness) => {
-  const colourScale = chroma.scale(['red', 'orange', 'yellow', 'green', 'blue', 'purple']);
-  const colour = colourScale(danceability).saturate(valence).brighten(acousticness);
+  // Tertiary colors
+  const colourScale = chroma
+    .scale(['deeppink', 'darkviolet', 'royalblue', 'mediumspringgreen', 'greenyellow', 'orangered'])
+    .mode('hsl');
+  const colour = colourScale(danceability);
   return colour.hex();
 };
 
+// Secondary colors
 const getEnergyColour = (energy, valence, acousticness) => {
-  const colourScale = chroma.scale(['red', 'orange', 'yellow', 'green', 'blue', 'purple']);
-  const colour = colourScale(energy).saturate(valence).brighten(acousticness);
+  const colourScale = chroma.scale(['magenta', 'cyan', 'yellow', 'magenta']).mode('hsl');
+  const colour = colourScale(energy).brighten(valence);
   return colour.hex();
 };
 
+// Primary colors
 const getValenceColour = (valence, energy, acousticness) => {
-  const colourScale = chroma.scale(['red', 'orange', 'yellow', 'green', 'blue', 'purple']);
-  const colour = colourScale(valence).saturate(valence).luminance(acousticness).brighten(energy);
+  const colourScale = chroma.scale(['red', 'blue', 'green', 'red']).mode('hsl');
+  const colour = colourScale(valence);
   return colour.hex();
 };
 
