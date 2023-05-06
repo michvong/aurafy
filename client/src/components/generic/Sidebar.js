@@ -10,7 +10,7 @@ export default function Sidebar() {
     <div>
       <aside
         id="default-sidebar"
-        class="top-0 left-0 z-40 w-56 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        class="top-0 left-0 z-40 w-56 h-full transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
         <div class="h-screen px-3 py-4 bg-stone-900">
