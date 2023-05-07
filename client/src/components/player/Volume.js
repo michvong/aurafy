@@ -80,7 +80,7 @@ export default function Volume() {
 
   return (
     <>
-      <div class="flex items-center">
+      <div class="flex items-center drop-shadow-lg">
         <button onClick={handleVolumeClick}>
           <VolumeIcon volume={currentVolume} />
         </button>
@@ -96,7 +96,7 @@ export default function Volume() {
           />
           <div class="bg-white/30 w-full h-1 absolute top-1/2 left-0 rounded-full transform -translate-y-1/2">
             <div
-              class="bg-green-500 h-full rounded-full"
+              class="bg-green-400 h-full rounded-full"
               style={{ width: `${currentVolume}%` }}
             ></div>
             <div

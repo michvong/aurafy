@@ -40,8 +40,8 @@ export default function Duration() {
   };
 
   return (
-    <div class="flex flex-row items-center w-screen">
-      <span class="text-white text-sm">{currentDuration}</span>
+    <div class="flex flex-row items-center w-screen ">
+      <span class="text-white text-sm drop-shadow-lg">{currentDuration}</span>
       <div class="m-3 w-full h-8 relative">
         <input
           type="range"
@@ -49,10 +49,10 @@ export default function Duration() {
           max="100"
           value={String(currPositionOnBar)}
           onChange={handleDurationChange}
-          class="w-full h-full absolute opacity-0 cursor-pointer z-10"
+          class="w-full h-full absolute opacity-0 cursor-pointer z-10 shadow-lg"
           id="duration-bar"
         />
-        <div class="bg-white/30 w-full h-1 absolute top-1/2 left-0 rounded-full transform -translate-y-1/2">
+        <div class="bg-white/30 w-full h-1 absolute top-1/2 left-0 rounded-full transform -translate-y-1/2 ">
           <div
             class="bg-white h-full rounded-full"
             style={{ width: `${currPositionOnBar}%` }}
@@ -64,7 +64,7 @@ export default function Duration() {
           ></div>
         </div>
       </div>
-      <span class="text-white text-sm">{endDuration}</span>
+      <span class="text-white text-sm drop-shadow-lg">{endDuration}</span>
     </div>
   );
 }

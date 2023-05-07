@@ -40,18 +40,18 @@ export default function SongDetails() {
           <>
             <img
               src={currentImage}
-              class="rounded-sm w-36 h-36 bg-stone-500 mr-6"
+              class="shadow-lg rounded-sm w-36 h-36 bg-stone-500 mr-6"
               alt="Playlist image"
             />
           </>
         ) : (
-          <div class="rounded-sm w-36 h-36 bg-stone-600 flex justify-center items-center mr-8">
+          <div class="shadow-lg rounded-sm w-36 h-36 bg-stone-600 flex justify-center items-center mr-8">
             <img src={Music} alt="Music icon" style={{ width: '50%', height: '50%' }} />
           </div>
         )}
         <div class="flex flex-col justify-end">
-          <span class="text-white text-4xl font-bold mb-3">{currentSong}</span>
-          <span class="text-gray-400 text-xl font-bold">
+          <span class="text-white text-4xl font-bold mb-3 drop-shadow-lg">{currentSong}</span>
+          <span class="text-gray-200 text-xl font-bold drop-shadow-lg">
             {currentArtists.length > 0
               ? currentArtists.map((artist) => artist.name).join(', ')
               : 'Artist'}

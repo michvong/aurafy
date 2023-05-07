@@ -8,7 +8,7 @@ import Repeat from './Repeat';
 export default function Controller() {
   return (
     <>
-      <div class="flex items-center">
+      <div class="flex items-center drop-shadow-lg">
         <Shuffle />
         <Previous />
         <PlayToggle />

@@ -46,7 +46,7 @@ export default function Player({ currentTrackPalette }) {
     >
       <div class="flex flex-col justify-between h-full">
         <div class="flex items-center">
-          <div class="rounded-full ring-2 ring-white/70 w-10 h-10 flex items-center justify-center mr-6">
+          <div class="shadow rounded-full ring-2 ring-white w-10 h-10 flex items-center justify-center mr-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -57,6 +57,7 @@ export default function Player({ currentTrackPalette }) {
               stroke-width="1"
               stroke-linecap="round"
               stroke-linejoin="round"
+              class="drop-shadow-md"
             >
               <circle cx="5.5" cy="17.5" r="2.5" />
               <circle cx="17.5" cy="15.5" r="2.5" />
@@ -65,8 +66,12 @@ export default function Player({ currentTrackPalette }) {
           </div>
 
           <div class="flex flex-col">
-            <div class="text-white/60 text-md font-medium tracking-wide">PLAYING FROM PLAYLIST</div>
-            <div class="text-white/60 text-md font-medium tracking-wide">{playlistName}</div>
+            <div class="text-white text-md font-medium tracking-wide drop-shadow-md">
+              PLAYING FROM PLAYLIST
+            </div>
+            <div class="text-white text-md font-medium tracking-wide drop-shadow-md">
+              {playlistName}
+            </div>
           </div>
         </div>
 

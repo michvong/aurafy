@@ -10,7 +10,10 @@ export default function Minimize() {
   };
 
   return (
-    <button class="mr-1 hover:scale-110 focus:scale-95" onClick={handleMinimizeClick}>
+    <button
+      class="mr-1 hover:scale-110 focus:scale-95 drop-shadow-lg"
+      onClick={handleMinimizeClick}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"
