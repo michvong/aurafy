@@ -15,6 +15,7 @@ import Playlist from '../components/playlist/Playlist';
 
 export default function Home() {
   const [accessToken, setAccessToken] = useState('');
+  const [currentTrackPalette, setCurrentTrackPalette] = useState([]);
   const { userInfo, updateUserInfo } = useContext(UserInfoContext);
   const { playlistId } = useParams();
   const getOAuthToken = useCallback((callback) => callback(accessToken), [accessToken]);
@@ -40,7 +41,7 @@ export default function Home() {
       initialVolume={0.5}
     >
       {userInfo.onFullPlayer ? (
-        <Player />
+        <Player currentTrackPalette={currentTrackPalette} />
       ) : (
         <div>
           {!userInfo.hasCompletedGuide && <Guide />}
@@ -60,7 +61,10 @@ export default function Home() {
                   </div>
 
                   {playlistId ? (
-                    <Playlist playlistId={playlistId} />
+                    <Playlist
+                      playlistId={playlistId}
+                      setCurrentTrackPalette={setCurrentTrackPalette}
+                    />
                   ) : (
                     <React.Fragment>
                       <Welcome />

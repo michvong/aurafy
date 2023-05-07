@@ -6,11 +6,12 @@ import Alert from './Alert';
 import { formatDurationMS } from '../../services/formatDurationMS';
 import generateColourPalette from '../../services/generateColourPalette';
 
-export default function Tracklist({ playlistId }) {
+export default function Tracklist({ playlistId, setCurrentTrackPalette }) {
   let trackNumberCounter = 1;
   const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
   const [playlistPalettes, setPlaylistPalettes] = useState([]);
   const [isLocalTrack, setIsLocalTrack] = useState(false);
+  // const [currentTrackPalette, setCurrentTrackPalette] = useState([]);
 
   const playerDevice = usePlayerDevice();
 
@@ -48,7 +49,7 @@ export default function Tracklist({ playlistId }) {
         }
 
         setPlaylistPalettes(palettes);
-        console.log(palettes);
+        // console.log(palettes);
       } catch (err) {
         // console.log(err);
       }
@@ -65,7 +66,7 @@ export default function Tracklist({ playlistId }) {
     return () => clearInterval(intervalId);
   }, [isLocalTrack]);
 
-  const handlePlayTrack = async (contextUri, trackUri, deviceId) => {
+  const handlePlayTrack = async (contextUri, trackUri, deviceId, trackIdx) => {
     const isLocalTrackUri = /^spotify:local:.*$/.test(trackUri);
     if (isLocalTrackUri) {
       setIsLocalTrack(true);
@@ -74,6 +75,8 @@ export default function Tracklist({ playlistId }) {
     }
 
     try {
+      setCurrentTrackPalette(playlistPalettes[trackIdx]);
+      // console.log(playlistPalettes[trackIdx]);
       await api.playTrack(contextUri, trackUri, deviceId);
     } catch (err) {
       console.log(err);
@@ -134,7 +137,12 @@ export default function Tracklist({ playlistId }) {
                     <span class="pr-1 group-hover:text-transparent">{trackNumberCounter++}</span>
                     <button
                       onClick={() =>
-                        handlePlayTrack(playlist.uri, item.track.uri, playerDevice.device_id)
+                        handlePlayTrack(
+                          playlist.uri,
+                          item.track.uri,
+                          playerDevice.device_id,
+                          trackIdx
+                        )
                       }
                       class="flex justify-center absolute left-0 right-0 bottom-0 opacity-0 group-hover:opacity-100"
                     >

@@ -5,7 +5,7 @@ import api from '../../services/api';
 import colours from '../../services/colours';
 import Loading from '../generic/Loading';
 
-export default function Playlist({ playlistId }) {
+export default function Playlist({ playlistId, setCurrentTrackPalette }) {
   const [isLoading, setIsLoading] = useState(true);
   const [playlist, setPlaylist] = useState(null);
   const [totalDuration, setTotalDuration] = useState(0);
@@ -99,7 +99,7 @@ export default function Playlist({ playlistId }) {
           </div>
         </div>
         <div class="min-h-screen mb-10">
-          <Tracklist playlistId={playlistId} />
+          <Tracklist playlistId={playlistId} setCurrentTrackPalette={setCurrentTrackPalette} />
         </div>
       </div>
     </div>

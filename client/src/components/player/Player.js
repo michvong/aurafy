@@ -8,7 +8,7 @@ import Device from './Device';
 import Volume from './Volume';
 import Minimize from './Minimize';
 
-export default function Player() {
+export default function Player({ currentTrackPalette }) {
   const [isCurrentDevice, setIsCurrentDevice] = useState(false);
   const [playlistName, setPlaylistName] = useState('playlist_name');
 
@@ -17,6 +17,7 @@ export default function Player() {
 
   useEffect(() => {
     // console.log(playbackState);
+    // console.log(currentTrackPalette[0]);
     const fetchCurrentDevice = async () => {
       try {
         const response = await api.getCurrentPlaybackState();
@@ -35,7 +36,14 @@ export default function Player() {
   }, [playbackState, device]);
 
   return (
-    <div class="h-screen w-screen bg-green-900 p-10">
+    <div
+      style={{
+        '--current-track-palette-0': currentTrackPalette[0],
+        '--current-track-palette-1': currentTrackPalette[1],
+        '--current-track-palette-2': currentTrackPalette[2],
+      }}
+      class="h-screen w-screen bg-gradient-to-r from-current-track-palette-0 via-current-track-palette-1 to-current-track-palette-2 animate-gradient-linear p-10"
+    >
       <div class="flex flex-col justify-between h-full">
         <div class="flex items-center">
           <div class="rounded-full ring-2 ring-white/70 w-10 h-10 flex items-center justify-center mr-6">
