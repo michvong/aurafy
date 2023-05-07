@@ -96,7 +96,7 @@ export default function Sidebar() {
 
           <span class="ml-1 mb-2 text-sm text-white font-extrabold">PLAYLISTS</span>
 
-          <div class="overflow-y-auto max-h-[530px]">
+          <div class="overflow-y-auto max-h-[530px] overscroll-contain">
             <ul>
               {userPlaylists.map((playlist) => (
                 <li key={playlist.id}>
