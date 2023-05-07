@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserInfoContext } from '../../contexts/UserInfo';
 
 export default function Minimize() {
+  const { userInfo, updateUserInfo } = useContext(UserInfoContext);
+
+  const handleMinimizeClick = () => {
+    updateUserInfo({ onFullPlayer: false });
+    console.log('Miniplayer mode...');
+  };
+
   return (
-    <button class="mr-1 hover:scale-110 focus:scale-95">
+    <button class="mr-1 hover:scale-110 focus:scale-95" onClick={handleMinimizeClick}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="18"

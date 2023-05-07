@@ -34,22 +34,23 @@ export default function Player() {
     <div class="h-screen w-screen bg-green-900 p-10">
       <div class="flex flex-col justify-between h-full">
         <div class="flex items-center">
-          <button class="rounded-full ring-2 ring-white/70 w-10 h-10 flex items-center justify-center mr-6 hover:scale-110">
+          <div class="rounded-full ring-2 ring-white/70 w-10 h-10 flex items-center justify-center mr-6">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
               fill="none"
               stroke="#ffffff"
               stroke-width="1"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="stroke-white/70"
             >
-              <path d="M19 12H6M12 5l-7 7 7 7" />
+              <circle cx="5.5" cy="17.5" r="2.5" />
+              <circle cx="17.5" cy="15.5" r="2.5" />
+              <path d="M8 17V5l12-2v12" />
             </svg>
-          </button>
+          </div>
 
           <div class="flex flex-col">
             <div class="text-white/60 text-md font-medium tracking-wide">PLAYING FROM PLAYLIST</div>
@@ -60,7 +61,7 @@ export default function Player() {
         <div>
           <SongDetails />
 
-          <div class="opacity-0 hover:opacity-100 transition-opacity duration-300">
+          <div class="opacity-0 hover:opacity-100 relative transition-opacity duration-300">
             <div class="flex justify-center">
               <Duration />
             </div>
