@@ -19,7 +19,7 @@ export default function NavBar({ navigationHidden }) {
                 class="max-h-6 mr-3"
                 alt="aurafy Logo"
               />
-              <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+              <span class="self-center text-xl font-semibold whitespace-nowrap text-white">
                 aurafy
               </span>
               <div class="invisible">
