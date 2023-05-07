@@ -40,9 +40,9 @@ export default function Duration() {
   };
 
   return (
-    <div class="flex flex-row items-center w-screen">
-      <span class="text-white text-sm">{currentDuration}</span>
-      <div class="m-3 w-full h-8 relative">
+    <div class="flex flex-row items-center">
+      <span class="text-white text-xs">{currentDuration}</span>
+      <div class="mx-2 w-96 h-6 relative">
         <input
           type="range"
           min="0"
@@ -52,7 +52,7 @@ export default function Duration() {
           class="w-full h-full absolute opacity-0 cursor-pointer z-10"
           id="duration-bar"
         />
-        <div class="bg-white/30 w-full h-1 absolute top-1/2 left-0 rounded-full transform -translate-y-1/2">
+        <div class="bg-gray-500 w-full h-1 absolute top-1/2 left-0 rounded-full transform -translate-y-1/2">
           <div
             class="bg-white h-full rounded-full"
             style={{ width: `${currPositionOnBar}%` }}
@@ -64,7 +64,7 @@ export default function Duration() {
           ></div>
         </div>
       </div>
-      <span class="text-white text-sm">{endDuration}</span>
+      <span class="text-white text-xs">{endDuration}</span>
     </div>
   );
 }

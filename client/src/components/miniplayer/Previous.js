@@ -8,8 +8,8 @@ export default function Previous() {
     <button onClick={() => player.previousTrack()} class="p-3 hover:scale-110 focus:scale-95">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="26"
-        height="26"
+        width="22"
+        height="22"
         viewBox="0 0 24 24"
         fill="white"
         stroke="#ffffff"

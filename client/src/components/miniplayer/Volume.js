@@ -94,7 +94,7 @@ export default function Volume() {
             class="w-full h-full absolute opacity-0 cursor-pointer z-10"
             id="volume-bar"
           />
-          <div class="bg-white/30 w-full h-1 absolute top-1/2 left-0 rounded-full transform -translate-y-1/2">
+          <div class="bg-gray-500 w-full h-1 absolute top-1/2 left-0 rounded-full transform -translate-y-1/2">
             <div
               class="bg-green-500 h-full rounded-full"
               style={{ width: `${currentVolume}%` }}

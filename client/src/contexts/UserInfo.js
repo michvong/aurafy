@@ -9,6 +9,7 @@ const UserInfoProvider = (props) => {
     username: null,
     email: null,
     hasCompletedGuide: false,
+    onFullPlayer: false,
   });
 
   useEffect(() => {

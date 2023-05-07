@@ -21,8 +21,8 @@ export default function PlayToggle() {
         <button onClick={() => player.togglePlay()} class="p-3 hover:scale-110 focus:scale-95">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="60"
-            height="60"
+            width="40"
+            height="40"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#ffffff"
@@ -39,8 +39,8 @@ export default function PlayToggle() {
         <button onClick={() => player.togglePlay()} class="p-3 hover:scale-110 focus:scale-95">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="60"
-            height="60"
+            width="40"
+            height="40"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#ffffff"

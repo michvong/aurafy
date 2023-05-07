@@ -23,8 +23,8 @@ export default function Shuffle() {
         {repeatState === 'off' && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#ffffff"
@@ -40,8 +40,8 @@ export default function Shuffle() {
         {repeatState === 'context' && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#ffffff"
@@ -58,8 +58,8 @@ export default function Shuffle() {
         {repeatState === 'track' && (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="#ffffff"
