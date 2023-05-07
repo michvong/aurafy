@@ -4,8 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserInfoProvider } from './contexts/UserInfo';
 import { UserPlaylistsProvider } from './contexts/UserPlaylists';
 
-import Home from './pages';
-import Landing from './components/landing/Landing';
+import Home from './pages/Home';
+import Landing from './pages/Landing';
 
 function App() {
   return (
