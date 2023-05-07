@@ -40,7 +40,7 @@ export default function SongDetails() {
           <>
             <img
               src={currentImage}
-              class="rounded-sm max-w-12 max-h-12 bg-stone-500 mr-4"
+              class="rounded-sm w-36 h-36 bg-stone-500 mr-6"
               alt="Playlist image"
             />
           </>

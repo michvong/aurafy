@@ -39,11 +39,11 @@ export default function Home() {
       connectOnInitialized={true}
       initialVolume={0.5}
     >
-      {!userInfo.onFullPlayer ? (
+      {userInfo.onFullPlayer ? (
         <Player />
       ) : (
         <div>
-          {userInfo.hasCompletedGuide && <Guide />}
+          {!userInfo.hasCompletedGuide && <Guide />}
           <div class="flex max-h-screen flex-col overscroll-contain">
             <div class="flex flex-1">
               <div class="z-50 flex flex-col flex-grow">
