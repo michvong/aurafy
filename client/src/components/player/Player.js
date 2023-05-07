@@ -10,11 +10,13 @@ import Minimize from './Minimize';
 
 export default function Player() {
   const [isCurrentDevice, setIsCurrentDevice] = useState(false);
+  const [playlistName, setPlaylistName] = useState('playlist_name');
 
   const playbackState = usePlaybackState({ interval: true });
   const device = usePlayerDevice();
 
   useEffect(() => {
+    // console.log(playbackState);
     const fetchCurrentDevice = async () => {
       try {
         const response = await api.getCurrentPlaybackState();
@@ -27,7 +29,9 @@ export default function Player() {
         // console.log(err);
       }
     };
+
     fetchCurrentDevice();
+    setPlaylistName(playbackState.context.metadata.name);
   }, [playbackState, device]);
 
   return (
@@ -54,7 +58,7 @@ export default function Player() {
 
           <div class="flex flex-col">
             <div class="text-white/60 text-md font-medium tracking-wide">PLAYING FROM PLAYLIST</div>
-            <div class="text-white/60 text-md font-medium tracking-wide">playlist_name</div>
+            <div class="text-white/60 text-md font-medium tracking-wide">{playlistName}</div>
           </div>
         </div>
 
