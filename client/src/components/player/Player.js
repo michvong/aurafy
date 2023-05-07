@@ -5,6 +5,7 @@ import SongDetails from './SongDetails';
 import Controller from './Controller';
 import Device from './Device';
 import Volume from './Volume';
+import Expand from './Expand';
 
 export default function Player() {
   const [isCurrentDevice, setIsCurrentDevice] = useState(false);
@@ -36,6 +37,7 @@ export default function Player() {
         <div class="flex items-center">
           <Device />
           <Volume />
+          <Expand />
         </div>
       </div>
 
