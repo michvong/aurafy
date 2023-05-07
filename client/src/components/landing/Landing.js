@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import LoginButton from '../generic/Login';
 import NavBar from '../generic/Navbar';
 
