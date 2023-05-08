@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Music from '../../assets/music.svg';
-import Tracklist from './Tracklist';
+import { formatDuration } from '../../services/formatDuration';
 import api from '../../services/api';
 import colours from '../../services/colours';
+import generateColourPalette from '../../services/generateColourPalette';
+import Music from '../../assets/music.svg';
+import Tracklist from './Tracklist';
 import Loading from '../generic/Loading';
 
-export default function Playlist({ playlistId, setCurrentTrackPalette, currentTrackPalette }) {
+export default function Playlist({ playlistId, setCurrentTrackPalette }) {
   const [isLoading, setIsLoading] = useState(true);
-  const [playlist, setPlaylist] = useState(null);
+  const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
   const [totalDuration, setTotalDuration] = useState(0);
   const [playlistColour, setPlaylistColour] = useState('');
+  const [playlistPalettes, setPlaylistPalettes] = useState([]);
 
   useEffect(() => {
     const fetchPlaylist = async () => {
@@ -25,37 +28,35 @@ export default function Playlist({ playlistId, setCurrentTrackPalette, currentTr
         colours
           .getDominantColour(response.data.images[0]?.url)
           .then((dominantColour) => {
-            // console.log(dominantColour);
             setPlaylistColour(dominantColour);
-            setIsLoading(false);
           })
           .catch((error) => {
             console.error(error);
-            setIsLoading(false);
           });
+
+        const palettes = [];
+        for (const item of response.data.tracks.items) {
+          const audioFeatures = await api.getAudioFeaturesForTrack(item.track.id);
+          const palette = generateColourPalette(
+            audioFeatures.data.danceability,
+            audioFeatures.data.energy,
+            audioFeatures.data.valence,
+            audioFeatures.data.tempo,
+            audioFeatures.data.acousticness
+          );
+          palettes.push(palette);
+        }
+
+        setPlaylistPalettes(palettes);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
-        setIsLoading(false);
       }
     };
 
+    setIsLoading(true);
     fetchPlaylist();
   }, [playlistId]);
-
-  const formatDuration = (ms) => {
-    const totalSeconds = Math.floor(ms / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = Math.floor(totalSeconds % 60);
-
-    if (hours > 0) {
-      return `${hours} hr ${minutes} min`;
-    } else if (hours < 1) {
-      return `${minutes} min ${seconds} sec`;
-    } else {
-      return `${seconds} sec`;
-    }
-  };
 
   if (isLoading) {
     return (
@@ -97,12 +98,12 @@ export default function Playlist({ playlistId, setCurrentTrackPalette, currentTr
             </div>
           </div>
         </div>
+
         <div class="min-h-screen mb-10">
           <Tracklist
-            playlistId={playlistId}
+            playlist={playlist}
+            playlistPalettes={playlistPalettes}
             setCurrentTrackPalette={setCurrentTrackPalette}
-            currentTrackPalette={currentTrackPalette}
-            setIsLoading={setIsLoading}
           />
         </div>
       </div>

@@ -1,55 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { usePlayerDevice, usePlaybackState } from 'react-spotify-web-playback-sdk';
-import Music from '../../assets/music.svg';
-import api from '../../services/api';
-import Alert from './Alert';
 import { formatDurationMS } from '../../services/formatDurationMS';
-import generateColourPalette from '../../services/generateColourPalette';
+import api from '../../services/api';
+import Music from '../../assets/music.svg';
+import Alert from './Alert';
 
-export default function Tracklist({ playlistId, setCurrentTrackPalette }) {
+export default function Tracklist({ playlist, playlistPalettes, setCurrentTrackPalette }) {
   let trackNumberCounter = 1;
-  const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
-  const [playlistPalettes, setPlaylistPalettes] = useState([]);
   const [isLocalTrack, setIsLocalTrack] = useState(false);
 
   const playerDevice = usePlayerDevice();
   const playbackState = usePlaybackState();
-
-  useEffect(() => {
-    const fetchPlaylist = async () => {
-      try {
-        const response = await api.getPlaylist(playlistId);
-        setPlaylist(response.data);
-
-        const palettes = [];
-        for (const item of response.data.tracks.items) {
-          const audioFeatures = await api.getAudioFeaturesForTrack(item.track.id);
-          const palette = generateColourPalette(
-            audioFeatures.data.danceability,
-            audioFeatures.data.energy,
-            audioFeatures.data.valence,
-            audioFeatures.data.tempo,
-            audioFeatures.data.acousticness
-          );
-          palettes.push(palette);
-        }
-
-        setPlaylistPalettes(palettes);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchPlaylist();
-  }, [playlistId]);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setIsLocalTrack(false);
-    }, 5000);
-
-    return () => clearInterval(intervalId);
-  }, [isLocalTrack]);
 
   useEffect(() => {
     const currentTrackId = playbackState?.track_window.current_track.id;
@@ -61,6 +22,14 @@ export default function Tracklist({ playlistId, setCurrentTrackPalette }) {
     playlistPalettes,
     setCurrentTrackPalette,
   ]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setIsLocalTrack(false);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [isLocalTrack]);
 
   const checkIsLocalTrack = async (trackUri) => {
     const isLocalTrackUri = /^spotify:local:.*$/.test(trackUri);
