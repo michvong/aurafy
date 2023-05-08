@@ -19,7 +19,7 @@ export default function Device() {
           setIsCurrentDevice(false);
         }
       } catch (err) {
-        // console.log(err);
+        console.log(err);
       }
     };
     fetchCurrentDevice();

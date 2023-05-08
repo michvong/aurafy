@@ -19,7 +19,7 @@ export default function Device() {
           setIsCurrentDevice(false);
         }
       } catch (err) {
-        // console.log(err);
+        console.log(err);
       }
     };
     fetchCurrentDevice();
@@ -43,7 +43,6 @@ export default function Device() {
             stroke-width="1"
             stroke-linecap="round"
             stroke-linejoin="round"
-            // class="stroke-green-400"
           >
             <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
             <circle cx="12" cy="14" r="4"></circle>

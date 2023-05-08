@@ -14,7 +14,7 @@ import Miniplayer from '../components/miniplayer/Miniplayer';
 import Playlist from '../components/playlist/Playlist';
 
 export default function Home() {
-  const { userInfo, updateUserInfo } = useContext(UserInfoContext);
+  const { userInfo } = useContext(UserInfoContext);
   const [accessToken, setAccessToken] = useState('');
   const [currentTrackPalette, setCurrentTrackPalette] = useState([]);
   const [onFullPlayer, setOnFullPlayer] = useState(false);

@@ -21,7 +21,7 @@ const UserInfoProvider = (props) => {
           email: response.data.email,
         });
       } catch (err) {
-        // console.log('User is not logged in');
+        console.log(err);
       }
     };
 

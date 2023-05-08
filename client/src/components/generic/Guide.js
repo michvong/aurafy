@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useSpotifyPlayer } from 'react-spotify-web-playback-sdk';
 import { UserInfoContext } from '../../contexts/UserInfo';
 

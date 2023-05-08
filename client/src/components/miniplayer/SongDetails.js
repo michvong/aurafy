@@ -15,7 +15,6 @@ export default function SongDetails() {
     const fetchCurrentPlaybackState = async () => {
       try {
         const response = await api.getCurrentPlaybackState();
-        // console.log(response);
         if (playbackState && response.data.device.id === device?.device_id) {
           setCurrentImage(playbackState.track_window.current_track.album.images[0].url);
           setCurrentSong(playbackState.track_window.current_track.name);

@@ -23,7 +23,6 @@ export default function Duration() {
     const endDurationMS = playbackState?.track_window?.current_track?.duration_ms;
 
     setCurrPositionOnBar((currentDurationMS / endDurationMS) * 100);
-    // console.log(playbackState);
   }, [playbackState]);
 
   const handleDurationChange = (event) => {

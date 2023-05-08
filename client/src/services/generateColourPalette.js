@@ -35,19 +35,10 @@ const getMixedColour = (danceabilityColour, valenceColour) => {
 
 const generateColourPalette = (danceability, energy, valence, tempo, acousticness) => {
   const danceabilityColour = getDanceabilityColour(danceability, valence, acousticness);
-  // console.log('dance colour: ', danceabilityColour);
-
   const energyColour = getEnergyColour(energy, valence, acousticness);
-  // console.log('energy colour: ', energyColour);
-
   const valenceColour = getValenceColour(valence, energy, acousticness);
-  // console.log('valence colour: ', valenceColour);
-
   const averageColour = getAverageColour(danceabilityColour, energyColour, valenceColour);
-  // console.log('average colour: ', averageColour);
-
   const mixedDanceValenceColour = getMixedColour(danceabilityColour, valenceColour);
-  // console.log('mixed colour: ', mixedDanceValenceColour);
 
   const colourPalette = [
     danceabilityColour,

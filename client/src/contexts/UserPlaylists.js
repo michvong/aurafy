@@ -12,7 +12,7 @@ const UserPlaylistsProvider = (props) => {
         const response = await api.getUserPlaylists();
         updateUserPlaylists(response.data);
       } catch (err) {
-        // console.log('User is not logged in');
+        console.log(err);
       }
     };
 
@@ -21,7 +21,6 @@ const UserPlaylistsProvider = (props) => {
 
   const updateUserPlaylists = (newPlaylists) => {
     setUserPlaylists(newPlaylists);
-    // console.log(newInfo);
   };
 
   return (

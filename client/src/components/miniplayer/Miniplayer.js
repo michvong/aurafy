@@ -23,7 +23,7 @@ export default function Miniplayer({ setOnFullPlayer }) {
           setIsCurrentDevice(false);
         }
       } catch (err) {
-        // console.log(err);
+        console.log(err);
       }
     };
     fetchCurrentDevice();

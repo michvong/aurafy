@@ -9,8 +9,6 @@ export default function PlaylistItem({ playlistId }) {
   const [playlistUri, setPlaylistUri] = useState('');
   const [playlistName, setPlaylistName] = useState('Playlist name');
   const [playlistImage, setPlaylistImage] = useState();
-  const [playlistDesc, setPlaylistDesc] = useState('Playlist description');
-  const [playlistPalette, setPlaylistPalette] = useState([]);
 
   const playerDevice = usePlayerDevice();
   const navigate = useNavigate();
@@ -19,13 +17,11 @@ export default function PlaylistItem({ playlistId }) {
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        // console.log(response);
         setPlaylistUri(response.data.uri);
         setPlaylistName(response.data.name);
         setPlaylistImage(response.data.images[0].url);
-        // setPlaylistDesc(response.data.description);
       } catch (err) {
-        // console.log(err);
+        console.log(err);
       }
     };
 
@@ -33,8 +29,6 @@ export default function PlaylistItem({ playlistId }) {
   }, [playlistId]);
 
   const handlePlayPlaylist = async (contextUri, deviceId) => {
-    // console.log(contextUri);
-    // console.log(deviceId);
     try {
       await api.playContext(contextUri, deviceId);
     } catch (err) {
