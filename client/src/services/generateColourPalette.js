@@ -5,21 +5,21 @@ const getDanceabilityColour = (danceability, valence, acousticness) => {
   const colourScale = chroma
     .scale(['deeppink', 'darkviolet', 'royalblue', 'mediumspringgreen', 'greenyellow', 'orangered'])
     .mode('hsl');
-  const colour = colourScale(danceability);
+  const colour = colourScale(danceability).brighten(acousticness).desaturate(valence);
   return colour.hex();
 };
 
 // Secondary colors
 const getEnergyColour = (energy, valence, acousticness) => {
   const colourScale = chroma.scale(['magenta', 'cyan', 'yellow', 'magenta']).mode('hsl');
-  const colour = colourScale(energy).brighten(valence);
+  const colour = colourScale(energy).brighten(acousticness).desaturate(valence);
   return colour.hex();
 };
 
 // Primary colors
 const getValenceColour = (valence, energy, acousticness) => {
   const colourScale = chroma.scale(['red', 'blue', 'green', 'red']).mode('hsl');
-  const colour = colourScale(valence);
+  const colour = colourScale(valence).brighten(acousticness).desaturate(energy);
   return colour.hex();
 };
 
