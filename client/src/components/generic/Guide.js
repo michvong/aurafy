@@ -42,9 +42,10 @@ export default function Guide() {
               <p class="text-md text-gray-400">
                 Play any song and the background will change according its{' '}
                 <span class="inline-flex items-center gap-x-1.5 text-green-500 decoration-2 font-medium">
-                  palette.
+                  palette
                 </span>{' '}
-                You can adjust the size of the player and move it around.
+                in the full-screen player. You can expand the player window by clicking the maximize
+                button on the miniplayer.
               </p>
 
               <div class="mt-6 flex justify-center gap-x-4">
