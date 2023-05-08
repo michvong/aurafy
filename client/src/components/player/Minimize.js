@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
-import { UserInfoContext } from '../../contexts/UserInfo';
 
-export default function Minimize() {
-  const { userInfo, updateUserInfo } = useContext(UserInfoContext);
-
+export default function Minimize({ setOnFullPlayer }) {
   const handleMinimizeClick = () => {
-    updateUserInfo({ onFullPlayer: false });
+    setOnFullPlayer(false);
     console.log('Miniplayer mode...');
   };
 

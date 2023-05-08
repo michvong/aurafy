@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
-import { UserInfoContext } from '../../contexts/UserInfo';
 
-export default function Maximize() {
-  const { userInfo, updateUserInfo } = useContext(UserInfoContext);
-
+export default function Maximize({ setOnFullPlayer }) {
   const handleMaximizeClick = () => {
-    updateUserInfo({ onFullPlayer: true });
+    setOnFullPlayer(true);
     console.log('Full player mode...');
   };
 

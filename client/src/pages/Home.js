@@ -14,9 +14,10 @@ import Miniplayer from '../components/miniplayer/Miniplayer';
 import Playlist from '../components/playlist/Playlist';
 
 export default function Home() {
+  const { userInfo, updateUserInfo } = useContext(UserInfoContext);
   const [accessToken, setAccessToken] = useState('');
   const [currentTrackPalette, setCurrentTrackPalette] = useState([]);
-  const { userInfo, updateUserInfo } = useContext(UserInfoContext);
+  const [onFullPlayer, setOnFullPlayer] = useState(false);
   const { playlistId } = useParams();
   const getOAuthToken = useCallback((callback) => callback(accessToken), [accessToken]);
 
@@ -40,8 +41,8 @@ export default function Home() {
       connectOnInitialized={true}
       initialVolume={0.5}
     >
-      {userInfo.onFullPlayer ? (
-        <Player currentTrackPalette={currentTrackPalette} />
+      {onFullPlayer ? (
+        <Player currentTrackPalette={currentTrackPalette} setOnFullPlayer={setOnFullPlayer} />
       ) : (
         <div>
           {!userInfo.hasCompletedGuide && <Guide />}
@@ -50,7 +51,7 @@ export default function Home() {
               <div class="z-50 flex flex-col flex-grow">
                 <Sidebar />
                 <div class="flex-shrink-0 fixed bottom-0 w-full">
-                  <Miniplayer />
+                  <Miniplayer setOnFullPlayer={setOnFullPlayer} />
                 </div>
               </div>
 

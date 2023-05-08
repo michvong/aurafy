@@ -8,7 +8,7 @@ import Device from './Device';
 import Volume from './Volume';
 import Minimize from './Minimize';
 
-export default function Player({ currentTrackPalette }) {
+export default function Player({ currentTrackPalette, setOnFullPlayer }) {
   const [isCurrentDevice, setIsCurrentDevice] = useState(false);
   const [playlistName, setPlaylistName] = useState('playlist_name');
 
@@ -16,8 +16,6 @@ export default function Player({ currentTrackPalette }) {
   const device = usePlayerDevice();
 
   useEffect(() => {
-    // console.log(playbackState);
-    // console.log(currentTrackPalette);
     const fetchCurrentDevice = async () => {
       try {
         const response = await api.getCurrentPlaybackState();
@@ -27,7 +25,7 @@ export default function Player({ currentTrackPalette }) {
           setIsCurrentDevice(false);
         }
       } catch (err) {
-        // console.log(err);
+        console.log(err);
       }
     };
 
@@ -92,7 +90,7 @@ export default function Player({ currentTrackPalette }) {
               <div class="flex-1 flex justify-end items-center">
                 <div class="flex items-center">
                   <Volume />
-                  <Minimize />
+                  <Minimize setOnFullPlayer={setOnFullPlayer} />
                 </div>
               </div>
             </div>

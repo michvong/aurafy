@@ -7,7 +7,7 @@ import Device from './Device';
 import Volume from './Volume';
 import Maximize from './Maximize';
 
-export default function Miniplayer() {
+export default function Miniplayer({ setOnFullPlayer }) {
   const [isCurrentDevice, setIsCurrentDevice] = useState(false);
 
   const playbackState = usePlaybackState({ interval: true });
@@ -37,7 +37,7 @@ export default function Miniplayer() {
         <div class="flex items-center">
           <Device />
           <Volume />
-          <Maximize />
+          <Maximize setOnFullPlayer={setOnFullPlayer} />
         </div>
       </div>
 
