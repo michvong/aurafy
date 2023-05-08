@@ -36,15 +36,21 @@ export default function Playlist({ playlistId, setCurrentTrackPalette }) {
 
         const palettes = [];
         for (const item of response.data.tracks.items) {
-          const audioFeatures = await api.getAudioFeaturesForTrack(item.track.id);
-          const palette = generateColourPalette(
-            audioFeatures.data.danceability,
-            audioFeatures.data.energy,
-            audioFeatures.data.valence,
-            audioFeatures.data.tempo,
-            audioFeatures.data.acousticness
-          );
-          palettes.push(palette);
+          const isLocalTrackUri = /^spotify:local:.*$/.test(item.track.uri);
+          if (isLocalTrackUri) {
+            console.log(`Cannot generate palette for local track: ${item.track.uri}`);
+            palettes.push(['#1c1917', '#1c1917', '#1c1917', '#1c1917', '#1c1917']);
+          } else {
+            const audioFeatures = await api.getAudioFeaturesForTrack(item.track.id);
+            const palette = generateColourPalette(
+              audioFeatures.data.danceability,
+              audioFeatures.data.energy,
+              audioFeatures.data.valence,
+              audioFeatures.data.tempo,
+              audioFeatures.data.acousticness
+            );
+            palettes.push(palette);
+          }
         }
 
         setPlaylistPalettes(palettes);
