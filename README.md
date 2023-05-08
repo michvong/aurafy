@@ -47,7 +47,7 @@ The client ID and client secret are taken from your Spotify API application.
 
 6. Try out the application by entering `http://localhost:3000/` in your browser.
 
-## **Notes**
+## **Notes/Known Bugs**
 
 - The current version of the Aurafy uses 3000 for the client port and 8000 for the server port.
 - Playlists may not load when a local track is contained in it.
