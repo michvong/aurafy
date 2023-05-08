@@ -6,7 +6,7 @@ import Alert from './Alert';
 import { formatDurationMS } from '../../services/formatDurationMS';
 import generateColourPalette from '../../services/generateColourPalette';
 
-export default function Tracklist({ playlistId, setCurrentTrackPalette, setIsLoading }) {
+export default function Tracklist({ playlistId, setCurrentTrackPalette }) {
   let trackNumberCounter = 1;
   const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
   const [playlistPalettes, setPlaylistPalettes] = useState([]);
@@ -19,25 +19,11 @@ export default function Tracklist({ playlistId, setCurrentTrackPalette, setIsLoa
     const fetchPlaylist = async () => {
       try {
         const response = await api.getPlaylist(playlistId);
-        // console.log(response.data);
         setPlaylist(response.data);
-
-        const audioFeatures = await api.getAudioFeaturesForTrack(
-          response.data.tracks.items[0].track.id
-        );
-        // console.log(audioFeatures);
-        generateColourPalette(
-          audioFeatures.data.danceability,
-          audioFeatures.data.energy,
-          audioFeatures.data.valence,
-          audioFeatures.data.tempo,
-          audioFeatures.data.acousticness
-        );
 
         const palettes = [];
         for (const item of response.data.tracks.items) {
           const audioFeatures = await api.getAudioFeaturesForTrack(item.track.id);
-          // console.log(audioFeatures);
           const palette = generateColourPalette(
             audioFeatures.data.danceability,
             audioFeatures.data.energy,
@@ -49,15 +35,12 @@ export default function Tracklist({ playlistId, setCurrentTrackPalette, setIsLoa
         }
 
         setPlaylistPalettes(palettes);
-        // console.log(palettes);
       } catch (err) {
-        // console.log(err);
+        console.log(err);
       }
     };
 
-    // setIsLoading(true);
     fetchPlaylist();
-    // setIsLoading(false);
   }, [playlistId]);
 
   useEffect(() => {
@@ -72,8 +55,6 @@ export default function Tracklist({ playlistId, setCurrentTrackPalette, setIsLoa
     const currentTrackId = playbackState?.track_window.current_track.id;
     const trackIdx = playlist.tracks.items.findIndex((track) => track.track.id === currentTrackId);
     setCurrentTrackPalette(playlistPalettes[trackIdx]);
-    // console.log(trackIdx);
-    // console.log(playlistPalettes[trackIdx]);
   }, [
     playbackState?.track_window.current_track.id,
     playlist.tracks.items,
@@ -81,16 +62,18 @@ export default function Tracklist({ playlistId, setCurrentTrackPalette, setIsLoa
     setCurrentTrackPalette,
   ]);
 
-  const handlePlayTrack = async (contextUri, trackUri, deviceId, trackIdx) => {
+  const checkIsLocalTrack = async (trackUri) => {
     const isLocalTrackUri = /^spotify:local:.*$/.test(trackUri);
     if (isLocalTrackUri) {
       setIsLocalTrack(true);
       console.log(`Cannot play local track URI: ${trackUri}`);
       return;
     }
+  };
 
+  const handlePlayTrack = async (contextUri, trackUri, deviceId) => {
+    checkIsLocalTrack(trackUri);
     try {
-      // console.log(playlistPalettes[trackIdx]);
       await api.playTrack(contextUri, trackUri, deviceId);
     } catch (err) {
       console.log(err);
@@ -151,12 +134,7 @@ export default function Tracklist({ playlistId, setCurrentTrackPalette, setIsLoa
                     <span class="pr-1 group-hover:text-transparent">{trackNumberCounter++}</span>
                     <button
                       onClick={() =>
-                        handlePlayTrack(
-                          playlist.uri,
-                          item.track.uri,
-                          playerDevice.device_id,
-                          trackIdx
-                        )
+                        handlePlayTrack(playlist.uri, item.track.uri, playerDevice.device_id)
                       }
                       class="flex justify-center absolute left-0 right-0 bottom-0 opacity-0 group-hover:opacity-100"
                     >
