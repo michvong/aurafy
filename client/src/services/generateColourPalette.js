@@ -56,6 +56,7 @@ const generateColourPalette = (danceability, energy, valence, tempo, acousticnes
     averageColour,
     mixedDanceValenceColour,
   ];
+
   return colourPalette;
 };
 
