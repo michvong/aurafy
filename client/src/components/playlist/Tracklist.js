@@ -16,6 +16,7 @@ export default function Tracklist({ playlist, playlistPalettes, setCurrentTrackP
     const currentTrackId = playbackState?.track_window.current_track.id;
     const trackIdx = playlist.tracks.items.findIndex((track) => track.track.id === currentTrackId);
     setCurrentTrackPalette(playlistPalettes[trackIdx]);
+    console.log(playlistPalettes[trackIdx]);
   }, [
     playbackState?.track_window.current_track.id,
     playlist.tracks.items,

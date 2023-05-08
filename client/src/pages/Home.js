@@ -41,44 +41,46 @@ export default function Home() {
       connectOnInitialized={true}
       initialVolume={0.5}
     >
-      {onFullPlayer ? (
-        <Player currentTrackPalette={currentTrackPalette} setOnFullPlayer={setOnFullPlayer} />
-      ) : (
-        <div>
-          {!userInfo.hasCompletedGuide && <Guide />}
-          <div class="flex max-h-screen flex-col overscroll-contain">
-            <div class="flex flex-1">
-              <div class="z-50 flex flex-col flex-grow">
-                <Sidebar />
-                <div class="flex-shrink-0 fixed bottom-0 w-full">
-                  <Miniplayer setOnFullPlayer={setOnFullPlayer} />
-                </div>
+      {onFullPlayer && (
+        <div class="absolute inset-0 z-80">
+          <Player currentTrackPalette={currentTrackPalette} setOnFullPlayer={setOnFullPlayer} />
+        </div>
+      )}
+
+      <div class={`${onFullPlayer ? 'hidden' : ''}`}>
+        {!userInfo.hasCompletedGuide && <Guide />}
+        <div class="flex max-h-screen flex-col overscroll-contain">
+          <div class="flex flex-1">
+            <div class="z-50 flex flex-col flex-grow">
+              <Sidebar />
+              <div class="flex-shrink-0 fixed bottom-0 w-full">
+                <Miniplayer setOnFullPlayer={setOnFullPlayer} />
               </div>
+            </div>
 
-              <div class="flex flex-col w-full h-screen bg-transparent overflow-y-auto overscroll-contain">
-                <div class="mb-12">
-                  <div class="sticky top-0 z-50">
-                    <NavBar navigationHidden={false} />
-                  </div>
-
-                  {playlistId ? (
-                    <Playlist
-                      playlistId={playlistId}
-                      setCurrentTrackPalette={setCurrentTrackPalette}
-                      currentTrackPalette={currentTrackPalette}
-                    />
-                  ) : (
-                    <React.Fragment>
-                      <Welcome />
-                      <PlaylistList />
-                    </React.Fragment>
-                  )}
+            <div class="flex flex-col w-full h-screen bg-transparent overflow-y-auto overscroll-contain">
+              <div class="mb-12">
+                <div class="sticky top-0 z-50">
+                  <NavBar navigationHidden={false} />
                 </div>
+
+                {playlistId ? (
+                  <Playlist
+                    playlistId={playlistId}
+                    setCurrentTrackPalette={setCurrentTrackPalette}
+                    currentTrackPalette={currentTrackPalette}
+                  />
+                ) : (
+                  <React.Fragment>
+                    <Welcome />
+                    <PlaylistList />
+                  </React.Fragment>
+                )}
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
     </WebPlaybackSDK>
   );
 }
