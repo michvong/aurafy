@@ -64,6 +64,7 @@ export default function Home() {
                     <Playlist
                       playlistId={playlistId}
                       setCurrentTrackPalette={setCurrentTrackPalette}
+                      currentTrackPalette={currentTrackPalette}
                     />
                   ) : (
                     <React.Fragment>

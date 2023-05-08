@@ -17,7 +17,7 @@ export default function Player({ currentTrackPalette }) {
 
   useEffect(() => {
     // console.log(playbackState);
-    // console.log(currentTrackPalette[0]);
+    // console.log(currentTrackPalette);
     const fetchCurrentDevice = async () => {
       try {
         const response = await api.getCurrentPlaybackState();
@@ -33,7 +33,7 @@ export default function Player({ currentTrackPalette }) {
 
     fetchCurrentDevice();
     setPlaylistName(playbackState.context.metadata.name);
-  }, [playbackState, device]);
+  }, [playbackState, device, currentTrackPalette]);
 
   return (
     <div

@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { usePlayerDevice } from 'react-spotify-web-playback-sdk';
+import { usePlayerDevice, usePlaybackState } from 'react-spotify-web-playback-sdk';
 import Music from '../../assets/music.svg';
 import api from '../../services/api';
 import Alert from './Alert';
 import { formatDurationMS } from '../../services/formatDurationMS';
 import generateColourPalette from '../../services/generateColourPalette';
 
-export default function Tracklist({ playlistId, setCurrentTrackPalette }) {
+export default function Tracklist({ playlistId, setCurrentTrackPalette, setIsLoading }) {
   let trackNumberCounter = 1;
   const [playlist, setPlaylist] = useState({ tracks: { items: [] } });
   const [playlistPalettes, setPlaylistPalettes] = useState([]);
   const [isLocalTrack, setIsLocalTrack] = useState(false);
-  // const [currentTrackPalette, setCurrentTrackPalette] = useState([]);
 
   const playerDevice = usePlayerDevice();
+  const playbackState = usePlaybackState();
 
   useEffect(() => {
     const fetchPlaylist = async () => {
@@ -55,7 +55,9 @@ export default function Tracklist({ playlistId, setCurrentTrackPalette }) {
       }
     };
 
+    // setIsLoading(true);
     fetchPlaylist();
+    // setIsLoading(false);
   }, [playlistId]);
 
   useEffect(() => {
@@ -66,6 +68,19 @@ export default function Tracklist({ playlistId, setCurrentTrackPalette }) {
     return () => clearInterval(intervalId);
   }, [isLocalTrack]);
 
+  useEffect(() => {
+    const currentTrackId = playbackState?.track_window.current_track.id;
+    const trackIdx = playlist.tracks.items.findIndex((track) => track.track.id === currentTrackId);
+    setCurrentTrackPalette(playlistPalettes[trackIdx]);
+    // console.log(trackIdx);
+    // console.log(playlistPalettes[trackIdx]);
+  }, [
+    playbackState?.track_window.current_track.id,
+    playlist.tracks.items,
+    playlistPalettes,
+    setCurrentTrackPalette,
+  ]);
+
   const handlePlayTrack = async (contextUri, trackUri, deviceId, trackIdx) => {
     const isLocalTrackUri = /^spotify:local:.*$/.test(trackUri);
     if (isLocalTrackUri) {
@@ -75,7 +90,6 @@ export default function Tracklist({ playlistId, setCurrentTrackPalette }) {
     }
 
     try {
-      setCurrentTrackPalette(playlistPalettes[trackIdx]);
       // console.log(playlistPalettes[trackIdx]);
       await api.playTrack(contextUri, trackUri, deviceId);
     } catch (err) {
