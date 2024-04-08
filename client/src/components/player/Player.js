@@ -31,6 +31,7 @@ export default function Player({ currentTrackPalette, setOnFullPlayer }) {
 
     fetchCurrentDevice();
     setPlaylistName(playbackState.context.metadata.name);
+    console.log(playlistName);
   }, [playbackState, device, currentTrackPalette]);
 
   return (
@@ -65,18 +66,18 @@ export default function Player({ currentTrackPalette, setOnFullPlayer }) {
 
           <div class="flex flex-col">
             <div class="text-white text-md font-medium tracking-wide drop-shadow-md">
-              PLAYING FROM PLAYLIST
+              PLAYING FROM PLAYLIST {playlistName}
             </div>
-            <div class="text-white text-md font-medium tracking-wide drop-shadow-md">
+            {/* <div class="text-white text-md font-medium tracking-wide drop-shadow-md">
               {playlistName}
-            </div>
+            </div> */}
           </div>
         </div>
 
         <div>
           <SongDetails />
 
-          <div class="opacity-0 hover:opacity-100 relative transition-opacity duration-300">
+          <div class="hover:opacity-100 relative transition-opacity duration-300">
             <div class="flex justify-center">
               <Duration />
             </div>
