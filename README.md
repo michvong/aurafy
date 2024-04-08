@@ -45,7 +45,9 @@ The client ID and client secret are taken from your Spotify API application.
 
 5. To start the front-end, run `npm start` under `/client`.
 
-6. Try out the application by entering `http://localhost:3000/` in your browser.
+6. Run the Redis server by using `redis-server` under the root directory.
+
+7. Try out the application by entering `http://localhost:3000/` in your browser.
 
 ## **Notes/Known Issues**
 
